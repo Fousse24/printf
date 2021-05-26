@@ -6,11 +6,12 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 15:24:54 by sfournie          #+#    #+#             */
-/*   Updated: 2021/05/23 15:32:36 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/05/24 16:30:00 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"libftprintf.h"
+#include	<stdio.h>
 
 void	ft_freeform(t_form *form)
 {
@@ -19,5 +20,44 @@ void	ft_freeform(t_form *form)
 	if (form->str != NULL)
 		free(form->str);
 	free(form);
+	return ;
+}
+
+void	ft_freecontent(char *content)
+{
+	if (content != NULL)
+		free(content);
+	return ;
+}
+
+void	ft_freeargs(t_arg **args)
+{
+	int i;
+
+	i = -1;
+	if (args != NULL)
+	{
+		while (args[++i])
+		{
+			ft_freeform(args[i]->form);
+			ft_freecontent(args[i]->content);
+			free(args[i]);
+		} 
+		free(args);
+	}
+	return ;
+}
+
+void	ft_freesplit(char **array)
+{
+	int i;
+	
+	i = -1;
+	/*while (array[++i] != NULL)
+	{
+		printf("in");
+		free(array[i]);
+	}*/
+	free(array);
 	return ;
 }
