@@ -6,11 +6,11 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 15:36:42 by sfournie          #+#    #+#             */
-/*   Updated: 2021/05/27 15:42:15 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/05/27 18:30:51 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"libftprintf.h"
+#include	"ft_printf.h"
 
 int		ft_printf(const char *format, ...)
 {
@@ -31,7 +31,6 @@ int		ft_printf(const char *format, ...)
 		if (format[1] && *format == '%')
 		{
 			strcat = ft_manageargs(arg_list, &format[1], &pos);
-			ft_putendl_fd("after cat", 1);
 			if (strcat == NULL)
 				return (0);
 			strprint = ft_strcatuntil(strprint, strcat, '\0');
@@ -42,6 +41,7 @@ int		ft_printf(const char *format, ...)
 		else
 			break;
 	}
-	ft_putendl_fd(strprint, 1);
+	ft_putstr_fd(strprint, 1);
+	free(strprint);
 	return (0);
 }

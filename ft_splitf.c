@@ -6,11 +6,11 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 15:40:51 by sfournie          #+#    #+#             */
-/*   Updated: 2021/05/24 14:02:46 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/05/27 18:30:30 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"libftprintf.h"
+#include	"ft_printf.h"
 #include	<stdio.h>
 
 static void	*ft_freesplit(char **s)
@@ -19,10 +19,7 @@ static void	*ft_freesplit(char **s)
 
 	i = 0;
 	while (s[i] != NULL)
-	{
-		printf("\n%d", i);
 		free(s[i++]);
-	}
 	free(s);
 	return (NULL);
 }

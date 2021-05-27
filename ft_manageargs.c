@@ -6,11 +6,11 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 14:43:50 by sfournie          #+#    #+#             */
-/*   Updated: 2021/05/27 15:43:01 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/05/27 18:30:30 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"libftprintf.h"
+#include	"ft_printf.h"
 #include	<stdio.h>
 
 static void	ft_showflags(t_flags *tflags)
@@ -40,7 +40,6 @@ char	*ft_manageargs(va_list alist, const char *format, size_t *pos)
 	t_flags	*tflags;
 	char	*strprint;
 
-	alist = NULL;
 	i = -1;
 	if ((count = ft_checkoptions(format)) < 0)
 		return (NULL);
@@ -53,13 +52,12 @@ char	*ft_manageargs(va_list alist, const char *format, size_t *pos)
 		free(tflags);
 		return (NULL);
 	}
-	ft_showflags(tflags);
+	//ft_showflags(tflags);
 	*pos = count;
-	ft_putendl_fd("before convert", 1);
 	strprint = ft_manageconvert(alist, format[*pos], tflags);
-	ft_putendl_fd("after convert", 1);
 	free(tflags);
 	if (strprint == NULL)
 		return (NULL);
+	*pos = *pos + 2;
 	return (strprint);
 }

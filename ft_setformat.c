@@ -6,11 +6,11 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 10:24:53 by sfournie          #+#    #+#             */
-/*   Updated: 2021/05/27 14:02:03 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/05/27 18:30:30 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"libftprintf.h"
+#include	"ft_printf.h"
 
 int		ft_checkoptions(const char *format)
 {

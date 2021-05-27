@@ -6,11 +6,11 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 15:25:17 by sfournie          #+#    #+#             */
-/*   Updated: 2021/05/27 15:33:51 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/05/27 18:30:30 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"libftprintf.h"
+#include	"ft_printf.h"
 
 // int		ft_checkpadding(char *flags, t_flag *flags)
 // {
@@ -26,33 +26,6 @@ void	ft_initflags(t_flags *tflag)
 	tflag->signspace = '\0';
 	tflag->modifier = '\0';
 	tflag->length = '\0';
-}
-
-char	*ft_applyflagsint(const char *str, const char c, t_flags *tflags)
-{
-	char	*fstr;
-	size_t	padsize;
-	size_t	strsize;
-	
-	if (c == '\0')	//à enlever
-		return (NULL);
-	if (tflags->left_align != 0)
-		return ((char *)str);
-	strsize = ft_strlen(str);
-	padsize = 0;
-	if (tflags->width > strsize)
-		padsize = tflags->width - strsize;
-	if (tflags->signspace)
-		padsize++;
-	fstr = (char *)malloc(sizeof(char) * (padsize + 1));
-	if (fstr == NULL)
-		return (NULL);
-	ft_memset(fstr, tflags->pad_with, padsize);
-	if (tflags->signspace)
-		fstr[padsize - 1] = tflags->signspace;
-	fstr[padsize] = '\0';
-	ft_strlcat(fstr, str, padsize + strsize + 1);
-	return (fstr);		
 }
 
 int		ft_setflags(const char *format, t_flags *tflags, int count)
