@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 11:42:09 by sfournie          #+#    #+#             */
-/*   Updated: 2021/05/26 16:40:08 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/05/27 15:39:56 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*ft_strcatuntil(char *dest, const char *src, int delim)
 	i = -1;
 	while (dest[++i])
 		result[i] = dest[i];
-	while (len-- >0)
+	while (len-- > 0)
 	{
 		result[i++] = *src++;
 	}	

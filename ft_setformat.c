@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 10:24:53 by sfournie          #+#    #+#             */
-/*   Updated: 2021/05/26 17:15:17 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/05/27 14:02:03 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,19 @@
 
 int		ft_checkoptions(const char *format)
 {
-	int	last;
-	int	i;
-	int	count;
-	int	pos;
-	int size;
+	int		i;
+	int		count;
+	int 	size;
 
 	size = (int)ft_strlen(FLAGSET);
 	i = -1;
-	last = -1;
 	count = 0;
 	while (++i < size)
 	{
-		pos = ft_strpchr(FLAGSET, format[i]);
-		if (pos >= 0)
+		if ((int)ft_strpchr(FLAGSET, format[i]) != -1)
 		{
-			if (pos <= last)
+			if (i != (int)ft_strpchr(format, format[i]))
 				return (-1);
-			last = pos;
 			count++;
 		}
 		else

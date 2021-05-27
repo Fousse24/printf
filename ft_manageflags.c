@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 15:25:17 by sfournie          #+#    #+#             */
-/*   Updated: 2021/05/26 17:07:59 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/05/27 15:33:51 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,33 @@ void	ft_initflags(t_flags *tflag)
 	tflag->length = '\0';
 }
 
+char	*ft_applyflagsint(const char *str, const char c, t_flags *tflags)
+{
+	char	*fstr;
+	size_t	padsize;
+	size_t	strsize;
+	
+	if (c == '\0')	//à enlever
+		return (NULL);
+	if (tflags->left_align != 0)
+		return ((char *)str);
+	strsize = ft_strlen(str);
+	padsize = 0;
+	if (tflags->width > strsize)
+		padsize = tflags->width - strsize;
+	if (tflags->signspace)
+		padsize++;
+	fstr = (char *)malloc(sizeof(char) * (padsize + 1));
+	if (fstr == NULL)
+		return (NULL);
+	ft_memset(fstr, tflags->pad_with, padsize);
+	if (tflags->signspace)
+		fstr[padsize - 1] = tflags->signspace;
+	fstr[padsize] = '\0';
+	ft_strlcat(fstr, str, padsize + strsize + 1);
+	return (fstr);		
+}
+
 int		ft_setflags(const char *format, t_flags *tflags, int count)
 {
 	char	*options;
@@ -36,17 +63,17 @@ int		ft_setflags(const char *format, t_flags *tflags, int count)
 	pos = 0;
 	options = ft_substr(format, 0, count);
 	if (options == NULL)
-		return (0);
+		return (-1);
 	if (!ft_setpadding(options, tflags))
-		return (0);
+		return (-1);
 	pos = count;
 	if (!ft_setwidth(&format[pos], tflags, &pos))
-		return (0);
+		return (-1);
 	if (format[pos] == '.')
 	{
 		pos++;
 		if (!ft_setprecision(&format[pos], tflags, &pos))
-			return (0);
+			return (-1);
 	}
 	return (pos);
 }

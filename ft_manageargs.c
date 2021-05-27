@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 14:43:50 by sfournie          #+#    #+#             */
-/*   Updated: 2021/05/26 17:12:15 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/05/27 15:43:01 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,6 @@ char	*ft_manageargs(va_list alist, const char *format, size_t *pos)
 	char	*strprint;
 
 	alist = NULL;
-	strprint = (char *)malloc(sizeof(char));
-	if (strprint == NULL)
-		return (NULL);
 	i = -1;
 	if ((count = ft_checkoptions(format)) < 0)
 		return (NULL);
@@ -51,9 +48,18 @@ char	*ft_manageargs(va_list alist, const char *format, size_t *pos)
 	if (tflags == NULL)
 		return (NULL);
 	ft_initflags(tflags);
-	if ((count = ft_setflags(format, tflags, count)) == 0)
+	if ((count = ft_setflags(format, tflags, count)) < 0)
+	{
+		free(tflags);
 		return (NULL);
+	}
 	ft_showflags(tflags);
 	*pos = count;
-	return (" pas fini");
+	ft_putendl_fd("before convert", 1);
+	strprint = ft_manageconvert(alist, format[*pos], tflags);
+	ft_putendl_fd("after convert", 1);
+	free(tflags);
+	if (strprint == NULL)
+		return (NULL);
+	return (strprint);
 }
