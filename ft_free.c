@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 15:24:54 by sfournie          #+#    #+#             */
-/*   Updated: 2021/05/27 18:30:30 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/05/27 19:16:53 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_freecontent(char *content)
 
 void	ft_freeargs(t_arg **args)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	if (args != NULL)
@@ -42,7 +42,7 @@ void	ft_freeargs(t_arg **args)
 			ft_freeform(args[i]->form);
 			ft_freecontent(args[i]->content);
 			free(args[i]);
-		} 
+		}
 		free(args);
 	}
 	return ;
@@ -50,14 +50,9 @@ void	ft_freeargs(t_arg **args)
 
 void	ft_freesplit(char **array)
 {
-	int i;
-	
+	int	i;
+
 	i = -1;
-	/*while (array[++i] != NULL)
-	{
-		printf("in");
-		free(array[i]);
-	}*/
 	free(array);
 	return ;
 }

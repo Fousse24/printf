@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 14:43:50 by sfournie          #+#    #+#             */
-/*   Updated: 2021/05/27 18:30:30 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/05/27 19:18:10 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,20 @@ static void	ft_showflags(t_flags *tflags)
 char	*ft_manageargs(va_list alist, const char *format, size_t *pos)
 {
 	int		i;
-	int 	count;
+	int		count;
 	t_flags	*tflags;
 	char	*strprint;
 
 	i = -1;
-	if ((count = ft_checkoptions(format)) < 0)
+	count = ft_checkoptions(format);
+	if (count  < 0)
 		return (NULL);
 	tflags = (t_flags *)malloc(sizeof(t_flags));
 	if (tflags == NULL)
 		return (NULL);
 	ft_initflags(tflags);
-	if ((count = ft_setflags(format, tflags, count)) < 0)
+	count = ft_setflags(format, tflags, count);
+	if (count < 0)
 	{
 		free(tflags);
 		return (NULL);

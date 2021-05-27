@@ -6,7 +6,7 @@
 #    By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/10 10:07:12 by sfournie          #+#    #+#              #
-#    Updated: 2021/05/27 18:53:24 by sfournie         ###   ########.fr        #
+#    Updated: 2021/05/27 19:05:06 by sfournie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ $(NAME) : $(HEAD) $(OBJS) libft
 all		: $(NAME)
 
 libft	: 
-		$(MLIBFT) all		
+		$(MLIBFT) all
+		cp ./libft/libft.a libftprintf.a	
 
 clean	:
 		rm -rf $(OBJS)

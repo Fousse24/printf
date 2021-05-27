@@ -15,8 +15,8 @@
 # include <stdarg.h>
 # include "./libft/libft.h"
 
-static const char	*FLAGSET = "-+#0 ";
-static const char	*CONVERTSET = "cspdiuxX%nfge";
+static const char	*g_FLAGSET = "-+#0 ";
+static const char	*g_CONVERTSET = "cspdiuxX%nfge";
 
 typedef struct	s_flags
 {
@@ -44,8 +44,8 @@ typedef struct	s_arg
 
 int		ft_printf(const char *format, ...);
 t_form	*ft_setformat(const char *format);
-t_arg	*ft_createarg(const char *format, va_list *arg); //return a filled s_arg struct
-void	*ft_convertarg(t_arg *arg); //convert the argument into a printable string
+t_arg	*ft_createarg(const char *format, va_list *arg);
+void	*ft_convertarg(t_arg *arg);
 char	*ft_manageargs(va_list alist, const char *format, size_t *pos);
 void	ft_initflags(t_flags *tflag);
 int		ft_checkoptions(const char *c);

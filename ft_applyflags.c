@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 16:39:58 by sfournie          #+#    #+#             */
-/*   Updated: 2021/05/27 18:30:30 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/05/27 19:16:46 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*ft_alignleft(const char *str, t_flags *tflags)
 	char	*fstr;
 	size_t	padsize;
 	size_t	strsize;
-	
+
 	strsize = ft_strlen(str);
 	padsize = strsize;
 	if (tflags->signspace)
@@ -40,7 +40,7 @@ static char	*ft_alignleft(const char *str, t_flags *tflags)
 		ft_memmove(fstr, str, strsize);
 	free((char *)str);
 	fstr[padsize] = '\0';
-	return (fstr);		
+	return (fstr);
 }
 
 char	*ft_applyflagsint(const char *str, t_flags *tflags)
@@ -48,7 +48,7 @@ char	*ft_applyflagsint(const char *str, t_flags *tflags)
 	char	*fstr;
 	size_t	padsize;
 	size_t	strsize;
-	
+
 	if (tflags->left_align == 1)
 		return (ft_alignleft(str, tflags));
 	strsize = ft_strlen(str);
@@ -69,5 +69,5 @@ char	*ft_applyflagsint(const char *str, t_flags *tflags)
 	ft_memmove(&fstr[padsize - strsize], str, strsize);
 	free((char *)str);
 	fstr[padsize] = '\0';
-	return (fstr);		
+	return (fstr);
 }

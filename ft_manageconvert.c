@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:42:04 by sfournie          #+#    #+#             */
-/*   Updated: 2021/05/27 18:30:30 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/05/27 19:16:15 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_checkconvert(const char c)
 {
-	if (ft_strpchr(CONVERTSET, c) > 0)
+	if (ft_strpchr(g_CONVERTSET, c) > 0)
 		return (1);
 	return (0);
 }

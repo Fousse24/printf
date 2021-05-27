@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 11:42:09 by sfournie          #+#    #+#             */
-/*   Updated: 2021/05/27 18:30:30 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/05/27 19:18:47 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ char	*ft_strcatuntil(char *dest, const char *src, int delim)
 		len++;
 	result = (char *)malloc(sizeof(char) * (destsize + len + 1));
 	if (result == NULL)
+	{
+		free(dest);
 		return (NULL);
+	}
 	i = -1;
 	while (dest[++i])
 		result[i] = dest[i];
