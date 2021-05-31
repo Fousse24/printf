@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 15:25:17 by sfournie          #+#    #+#             */
-/*   Updated: 2021/05/27 18:30:30 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/05/30 20:34:33 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,20 @@ void	ft_initflags(t_flags *tflag)
 	tflag->length = '\0';
 }
 
-int		ft_setflags(const char *format, t_flags *tflags, int count)
+int		ft_setflags(const char **format, t_flags *tflags, int count)
 {
 	char	*options;
-	size_t	pos;
 
-	pos = 0;
-	options = ft_substr(format, 0, count);
+	options = ft_substr(*format, 0, count);
 	if (options == NULL)
-		return (-1);
+		return (0);
 	if (!ft_setpadding(options, tflags))
-		return (-1);
-	pos = count;
-	if (!ft_setwidth(&format[pos], tflags, &pos))
-		return (-1);
-	if (format[pos] == '.')
-	{
-		pos++;
-		if (!ft_setprecision(&format[pos], tflags, &pos))
-			return (-1);
-	}
-	return (pos);
+		return (0);
+	*format = *format + count;
+	if (!ft_setwidth(format, tflags))
+		return (0);
+	if (**format == '.')
+		if (!ft_setprecision(format, tflags))
+			return (0);
+	return (1);
 }

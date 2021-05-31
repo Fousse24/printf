@@ -6,7 +6,7 @@
 #    By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/10 10:07:12 by sfournie          #+#    #+#              #
-#    Updated: 2021/05/27 19:05:06 by sfournie         ###   ########.fr        #
+#    Updated: 2021/05/30 16:02:06 by sfournie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ MLIBFT	= cd ./libft/ && make
 
 SRCS	= ft_printf.c ft_setformat.c ft_strmanip.c ft_manageflags.c\
 		 ft_manageargs.c ft_manageconvert.c ft_converttostr.c ft_applyflags.c\
+		 ft_managelist.c ft_free.c
 
 OBJS	= $(patsubst %.c,%.o,$(SRCS))
 

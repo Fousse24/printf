@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:42:04 by sfournie          #+#    #+#             */
-/*   Updated: 2021/05/27 19:16:15 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/05/30 19:48:03 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,24 @@
 
 static int	ft_checkconvert(const char c)
 {
-	if (ft_strpchr(g_CONVERTSET, c) > 0)
+	if (ft_strpchr(g_CONVERTSET, c) >= 0)
 		return (1);
 	return (0);
 }
 
-char	*ft_manageconvert(va_list alist, const char c, t_flags *tflags)
+int	ft_convertarg(va_list alist, const char c, t_arg *arg, t_flags *tflags)
 {
 	if (!ft_checkconvert(c))
-		return (NULL);
+	{
+		return (0);
+	}
 	if (c == 'd' || c == 'i' || c == 'u')
-		return (ft_convertnumber(alist, c, tflags));
-	return ("\0");
+	{
+		return (ft_convertnumber(alist, c, arg, tflags));
+	}
+	if (c == 'c' || c == 's')
+	{
+		return (ft_convertstr(alist, c, arg, tflags));
+	}
+	return (1);
 }

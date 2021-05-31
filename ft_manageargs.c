@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 14:43:50 by sfournie          #+#    #+#             */
-/*   Updated: 2021/05/27 19:18:10 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/05/30 20:33:15 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,33 +33,66 @@ static void	ft_showflags(t_flags *tflags)
 	return ;
 }
 
-char	*ft_manageargs(va_list alist, const char *format, size_t *pos)
+int		ft_managearg(va_list alist, const char **format, t_list *arg)
+{	
+	// ft_putstr_fd("format received : ", 1);
+	// ft_putendl_fd(*format, 1);
+	if (**format != '%')
+	{
+		if (!ft_managestr(format, (t_arg *)(arg->content)))
+			return (0);
+	}
+	if (**format == '%')
+	{
+		*format = *format + 1;
+		if (!ft_manageconv(alist, format, (t_arg *)(arg->content)))
+			return (0);
+	}
+	
+	return (1);
+}
+
+int		ft_manageconv(va_list alist, const char **format, t_arg *arg)
 {
 	int		i;
 	int		count;
 	t_flags	*tflags;
-	char	*strprint;
 
 	i = -1;
-	count = ft_checkoptions(format);
+	count = ft_checkoptions(*format);
 	if (count  < 0)
-		return (NULL);
+		return (0);
 	tflags = (t_flags *)malloc(sizeof(t_flags));
 	if (tflags == NULL)
-		return (NULL);
+		return (0);
 	ft_initflags(tflags);
-	count = ft_setflags(format, tflags, count);
-	if (count < 0)
+	if (!ft_setflags(format, tflags, count))
 	{
 		free(tflags);
-		return (NULL);
+		return (0);
 	}
-	//ft_showflags(tflags);
-	*pos = count;
-	strprint = ft_manageconvert(alist, format[*pos], tflags);
+	ft_showflags(tflags);
+	if (!ft_convertarg(alist, **format, arg, tflags))
+	{
+		free(tflags);
+		return (0);
+	}
 	free(tflags);
-	if (strprint == NULL)
-		return (NULL);
-	*pos = *pos + 2;
-	return (strprint);
+	*format = *format + 1;
+	return (1);
+} 
+
+int		ft_managestr(const char **format, t_arg *arg)
+{
+	char	*str;
+
+	str = ft_substruntil(*format, '%');
+	if (str == NULL)
+		return (0);
+	free(arg->str);
+	arg->str = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
+	ft_strlcpy(arg->str, str, (ft_strlen(str) + 1));
+	*format = *format + ft_strlen(str);
+	free(str);
+	return (1);
 }
