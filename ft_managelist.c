@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 14:13:33 by sfournie          #+#    #+#             */
-/*   Updated: 2021/05/30 20:28:07 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/05/31 17:02:41 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,23 @@
 
 t_list	*ft_initarg()
 {
-	t_arg	*arg;
+	char	*str;
 
-	arg = (t_arg *)malloc(sizeof(t_arg));
-	if (arg == NULL)
+	str = (char *)malloc(sizeof(char));
+	if (str == NULL)
 		return (NULL);
-	arg->convert = (char *)malloc(sizeof(char));
-	if (arg->convert == NULL)
-	{
-		free(arg);
-		return (NULL);
-	}
-	arg->str = (char *)malloc(sizeof(char));
-	if (arg->str == NULL)
-	{
-		free(arg);
-		free(arg->convert);
-		return (NULL);
-	}
-	return (ft_lstnew(arg));
+	return (ft_lstnew(str));
 }
 
 void	ft_printlist(void *arg)
 {
-	if (((t_arg *)arg)->str)
-		ft_putstr_fd(((t_arg *)arg)->str, 1);
-	if (((t_arg *)arg)->convert)
-		ft_putstr_fd(((t_arg *)arg)->convert, 1);
+	if (*((char *)arg))
+		ft_putstr_fd((char *)arg, 1);
+	return ;
+}
+
+void	ft_freearg(void *arg)
+{
+	free((char *)arg);
 	return ;
 }

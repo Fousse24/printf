@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:42:04 by sfournie          #+#    #+#             */
-/*   Updated: 2021/05/30 19:48:03 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/07 20:27:37 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,37 @@ static int	ft_checkconvert(const char c)
 	return (0);
 }
 
-int	ft_convertarg(va_list alist, const char c, t_arg *arg, t_flags *tflags)
+size_t	ft_getmallocsize(t_flags *flags, size_t strsize, const char c)
 {
+	size_t	size;
+
+	size = strsize;
+	if (flags->width > size)
+		size = flags->width;
+	if (flags->precision > size && (c == 'd' || c == 'i' || c == 'u'))
+		size = flags->precision;
+	if (flags->signspace && strsize == size)
+		size++;
+	return (size);
+}
+
+int		ft_convertarg(va_list alist, const char c, char **arg, t_flags *flags)
+{
+	char	*str;
+
 	if (!ft_checkconvert(c))
+		return (0);
+	if (c == 'd' || c == 'i' || c == 'u')
+		str = ft_convertnumber(alist, c, flags);
+	if (c == 'c' || c == 's')
+		str = ft_convertstr(alist, c, flags);
+	if (str == NULL)
+		return (0);
+	if (!ft_applyflags(str, c, arg, flags))
 	{
+		free(str);
 		return (0);
 	}
-	if (c == 'd' || c == 'i' || c == 'u')
-	{
-		return (ft_convertnumber(alist, c, arg, tflags));
-	}
-	if (c == 'c' || c == 's')
-	{
-		return (ft_convertstr(alist, c, arg, tflags));
-	}
+	free(str);
 	return (1);
 }

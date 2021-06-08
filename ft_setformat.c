@@ -6,34 +6,11 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 10:24:53 by sfournie          #+#    #+#             */
-/*   Updated: 2021/05/30 20:35:30 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/05/31 14:56:23 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"ft_printf.h"
-
-int	ft_checkoptions(const char *format)
-{
-	int	i;
-	int	count;
-	int	size;
-
-	size = (int)ft_strlen(g_FLAGSET);
-	i = -1;
-	count = 0;
-	while (++i < size)
-	{
-		if ((int)ft_strpchr(g_FLAGSET, format[i]) != -1)
-		{
-			if (i != (int)ft_strpchr(format, format[i]))
-				return (-1);
-			count++;
-		}
-		else
-			return (count);
-	}
-	return (count);
-}
 
 int	ft_setpadding(const char *options, t_flags *flags)
 {
@@ -67,6 +44,7 @@ int	ft_setwidth(const char **format, t_flags *flags)
 int	ft_setprecision(const char **format, t_flags *flags)
 {
 	int	prec;
+
 	*format = *format + 1;
 	prec = ft_atoi(*format);
 	flags->precision = prec;
