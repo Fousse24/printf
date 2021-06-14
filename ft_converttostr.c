@@ -6,13 +6,13 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:42:04 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/07 19:04:49 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/11 18:51:47 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"ft_printf.h"
 
-char	*ft_convertnumber(va_list alist, const char c, t_flags *tflags)
+char	*ft_convertnumber(va_list alist, const char c)
 {
 	char			*str;
 	int				ci;
@@ -35,13 +35,11 @@ char	*ft_convertnumber(va_list alist, const char c, t_flags *tflags)
 	return (str);
 }
 
-char	*ft_convertstr(va_list alist, const char c, t_flags *tflags)
+char	*ft_convertstr(va_list alist, const char c)
 {
 	char	*str;
 	char	*varg;
-	size_t	size;
 
-	size = 1;
 	if (c == 'c')
 	{
 		str = (char *)malloc(sizeof(char) * 2);
@@ -53,10 +51,26 @@ char	*ft_convertstr(va_list alist, const char c, t_flags *tflags)
 	else
 	{
 		varg = va_arg(alist, char *);
-		str = (char *)malloc(sizeof(char) * (ft_strlen(varg) + 1));
+		if (varg != NULL)
+		{
+			str = (char *)malloc(sizeof(char) * 1);
+			if (str == NULL)
+				return (NULL);
+			ft_strlcpy(str, varg, (ft_strlen(varg) + 1));
+		}
+		else
+		{
+			str = (char *)malloc(sizeof(char) * 7);
+			str[0] = '(';
+			str[1] = 'n';
+			str[2] = 'u';
+			str[3] = 'l';
+			str[4] = 'l';
+			str[5] = ')';		
+			str[6] = '\0';	
+		}
 		if (str == NULL)
-			return (NULL);
-		ft_strlcpy(str, varg, (ft_strlen(varg) + 1));
+			return (NULL);		
 	}
 	return (str);
 }

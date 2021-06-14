@@ -6,91 +6,94 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 16:39:58 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/07 20:46:43 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/11 19:06:23 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_int(const char *str, char c, char **arg, t_flags *flags)
+static int	ft_int(const char *str, t_flags *flags)
 {
 	char	*fstr;
-	size_t	padsize;
-	size_t	strsize;
 	int		i;
+	int		count;
 
-	strsize = ft_strlen(str);
-	padsize = ft_getmallocsize(flags, strsize, c);
-	fstr = (char *)malloc(sizeof(char) * (padsize + 1));
-	if (fstr == NULL)
-		return (0);
-	i = 0;
-	if (!flags->left_align)
-	{
-		while ((i < (int)strsize && flags->precision <= 0) ||
-				(flags->precision != 0 && i < (int)padsize - (int)flags->precision))
-			fstr[i++] = flags->pad_with;
-	}
-	if (flags->signspace)
-		fstr[i++] = flags->signspace;
-	while (i < (int)padsize)
-	{
-		if (flags->precision > 0 && flags->precision-- > strsize)
-			fstr[i++] = '0';
-		else if (*str)
-		{
-			fstr[i++] = *str;
-			str++;
-		}
-		else
-			fstr[i++] = ' ';
-	}
-	fstr[i] = '\0';
-	*arg = fstr;
-	return (1);	
-}
-
-static int	ft_str(const char *str, char c, char **arg, t_flags *flags)
-{
-	char	*fstr;
-	size_t	padsize;
-	size_t	strsize;
-	int		i;
-
-	strsize = ft_strlen(str);
-	padsize = ft_getmallocsize(flags, strsize, c);
-	fstr = (char *)malloc(sizeof(char) * (padsize + 1));
-	if (fstr == NULL)
-		return (0);
-	i = 0;
-	if (!flags->left_align)
-	{
-		while (i < (int)strsize)
-			fstr[i++] = flags->pad_with;
-	}
-	if ((flags->signspace && flags->signspace != '-') && (c == 'd' || c == 'i' || c == 'u'))
-		fstr[i++] = flags->signspace;
-	while (i < (int)padsize)
-	{
-		fstr[i++] = *str;
+	count = 0;
+	if (*str == '-')
 		str++;
+	fstr = (char *)malloc(sizeof(char) * (flags->pads + 1));
+	if (fstr == NULL)
+		return (-1);
+	i = -1;
+	while (++i < (int)flags->pads)
+	{
+		if (flags->sign && i == flags->startpos)
+			fstr[i] = flags->sign;
+		else if (i < flags->startpos)
+			fstr[i] = flags->padc;
+		else if (flags->padp-- > 0)
+			fstr[i] = '0';
+		else if (flags->ssize-- > 0)
+			fstr[i] = *(str++);
+		else
+			fstr[i] = ' ';
+		count++;
 	}
 	fstr[i] = '\0';
-	*arg = fstr;
-	return (1);	
+	ft_putstr_fd(fstr, 1);
+	free(fstr);
+	return (count);	
 }
 
-int	ft_applyflags(const char *str, char c, char **arg, t_flags *flags)
+static int	ft_str(const char *str, t_flags *flags)
 {
+	char	*fstr;
+	int		i;
+	int		count;
+
+	count = 0;
+	fstr = (char *)malloc(sizeof(char) * (flags->pads + 1));
+	if (fstr == NULL)
+		return (-1);
+	i = -1;
+	while (++i < (int)flags->pads)
+	{
+		if (i < flags->startpos)
+			fstr[i] = flags->padc;
+		else if (flags->ssize > 0 && flags->ssize-- > 0)
+			fstr[i] = *(str++);
+		else
+			fstr[i] = ' ';
+		count++;
+	}
+	fstr[i] = '\0';
+	ft_putstr_fd(fstr, 1);
+	free(fstr);
+	return (count);	
+}
+
+int	ft_applyflags(const char *str, char c, t_flags *flags)
+{
+	int bytes;
+
+	bytes = -1;
 	if (c == 'd' || c == 'i' || c == 'u')
 	{
-		if (!ft_int(str, c, arg, flags))
-			return (0);
+		
+		if (!ft_adjustnum(str, c, flags))
+			return (-1);
+		bytes = ft_int(str, flags);
 	}
 	else if (c == 'c' || c == 's')
 	{
-		if (!ft_str(str, c, arg, flags))
-			return (0);
+		if (!ft_adjuststr(str, c, flags))
+			return (-1);
+		bytes = ft_str(str, flags);
 	}
-	return (1);	
+	else if (c == '%')
+	{
+		ft_putchar_fd(c, 1);
+		bytes = 2;
+	}
+	return (bytes);	
 }

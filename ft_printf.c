@@ -6,31 +6,56 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 15:36:42 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/07 17:28:21 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/11 19:01:55 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"ft_printf.h"
 
-int		ft_printf(const char *format, ...)
-{
-	t_list		*toprint;
-	va_list		arg_list;
-
-	va_start (arg_list, format);
-	while (*format)
+int	ft_printall(va_list alist, const char *format)
+{	
+	int bytes;
+	int	written;
+	int i;
+	
+	bytes = 0;
+	written = 0;
+	i = -1;
+	while (format[++i])
 	{
-		ft_lstadd_front(&toprint, ft_initarg());
-		if (!ft_readformat(arg_list, &format, toprint))
+		if (format[i] != '%')
 		{
-			ft_putstr_fd("Invalid, clearing", 1);
-			ft_lstclear(&toprint, &ft_freearg);
-			return (0);
+			ft_putchar_fd(format[i], 1);
+			bytes++;
+		}
+		else
+		{
+			written = ft_getstrconv(alist, format, &i);
+			if (written == -1)
+				return (-1);
+			bytes += written;
 		}
 	}
-	ft_lstiter(toprint, &ft_printlist);
-	ft_lstclear(&toprint, &ft_freearg);
-	free(toprint);
+	return (bytes);
+}
+
+int		ft_printf(const char *format, ...)
+{
+	va_list		arg_list;
+	int			bytes;
+
+	bytes = 0;
+	va_start (arg_list, format);
+	if (*format)
+	{
+		bytes = ft_printall(arg_list, format);
+		if (bytes == -1)
+		{
+			ft_putstr_fd("Invalid, clearing", 1);
+			va_end(arg_list);
+			return (-1);
+		}
+	}
 	va_end(arg_list);
-	return (0);
+	return (bytes);
 }
