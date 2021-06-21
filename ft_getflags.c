@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 15:25:17 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/11 19:04:15 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/14 11:53:57 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	ft_initflags(t_flags *flags)
 	flags->padp = 0;
 	flags->startpos = 0;
 	flags->ssize = 0;
+	flags->signp = -1;
 }
 
 void	ft_showflags(t_flags *flags)

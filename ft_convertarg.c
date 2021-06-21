@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:42:04 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/11 18:22:51 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/21 09:23:41 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,10 @@ int	ft_getstrconv(va_list alist, const char *format, int *fi)
 	t_flags	*flags;
 
 	i = *fi + 1;
-	
 	count = ft_getflags(&format[i], &flags);
 	if (count < 0)
 		return (-1);
-	if (!ft_setflags(format, flags, count, &i))
+	if (!ft_setflags(alist, format, flags, count, &i))
 	{
 		free(flags);
 		return (-1);
@@ -42,22 +41,20 @@ int	ft_getstrconv(va_list alist, const char *format, int *fi)
 		return (-1);
 	*fi = i;
 	return (bytes);
-} 
+}
 
-int		ft_convertarg(va_list alist, const char c, t_flags *flags)
+int	ft_convertarg(va_list alist, const char c, t_flags *flags)
 {
-	char	*str;
 	int		bytes;
 
+	bytes = -1;
 	if (!ft_checkconvert(c))
-		return (-1);
+		return (bytes);
 	if (c == 'd' || c == 'i' || c == 'u')
-		str = ft_convertnumber(alist, c);
-	if (c == 'c' || c == 's')
-		str = ft_convertstr(alist, c);
-	if (str == NULL)
-		return (-1);
-	bytes = ft_applyflags(str, c, flags);
-	free(str);
+		bytes = ft_convertnum(alist, c, flags);
+	else if (c == 'c' || c == 's' || c == '%')
+		bytes = ft_convertstr(alist, c, flags);
+	else if (c == 'p')
+		bytes = ft_convertptr(alist, flags);
 	return (bytes);
 }
