@@ -6,33 +6,14 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 10:01:34 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/21 09:19:36 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/22 17:45:17 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"ft_printf.h"
 
-static int	ft_adjustnum(const char *str, char c, t_flags *flags)
+static void	ft_numalign(t_flags *flags)
 {
-	c = '\0'; //to remove
-	if (!str)
-		return (0);
-	if (flags->prec > 0)
-		flags->padc = ' ';
-	flags->ssize = ft_strlen(str);
-	if (str[0] == '-')
-	{
-		flags->ssize--;
-		flags->sign = '-';
-	}
-	if (flags->prec == 0)
-		flags->ssize = 0;
-	flags->pads = flags->ssize;
-	if (flags->prec > (int)flags->pads)
-		flags->pads = flags->prec;
-	if (flags->w > (int)flags->pads)
-		flags->pads = flags->w;
-	flags->padp = flags->prec - flags->ssize;
 	if (!flags->left && flags->pads > flags->ssize)
 	{
 		if ((int)flags->ssize >= flags->prec)
@@ -40,10 +21,33 @@ static int	ft_adjustnum(const char *str, char c, t_flags *flags)
 		else
 			flags->startpos = (int)flags->pads - flags->prec;
 		if (flags->startpos != 0 && flags->sign)
-			flags->startpos--;
+			flags->signp = flags->startpos - 1;
 	}
-	if (str[0] && flags->sign && (flags->ssize == flags->pads || flags->prec == (int)flags->pads))
+	if ((flags->padc == '0' || flags->prec == flags->pads) && flags->sign)
+		flags->signp = 0;
+	if (flags->sign && (flags->ssize == flags->pads || flags->prec == (int)flags->pads))
 		flags->pads++;
+	return ;
+}
+
+static int	ft_adjustnum(const char *str, char c, t_flags *flags)
+{
+	c = '\0'; //to remove
+	if (!str)
+		return (0);
+	if (flags->prec >= 0)
+		flags->padc = ' ';
+	flags->ssize = ft_strlen(str);
+	if (str[0] == '-')
+	{
+		flags->ssize--;
+		flags->sign = '-';
+	}
+	if (flags->prec == 0 && str[0] == '0')
+	 	flags->ssize = 0;
+	flags->pads = ft_sethighest(flags->ssize, flags->prec, flags->w);
+	flags->padp = flags->prec - flags->ssize;
+	ft_numalign(flags);
 	return (1);
 }
 
@@ -58,7 +62,7 @@ static int	ft_int(const char *str, t_flags *flags)
 	i = -1;
 	while (++i < (int)flags->pads)
 	{
-		if (flags->sign && i == flags->startpos)
+		if (flags->sign && i == flags->signp)
 			ft_putchar_fd(flags->sign, 1);
 		else if (i < flags->startpos)
 			ft_putchar_fd(flags->padc, 1);

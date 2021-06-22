@@ -14,6 +14,7 @@
 # define FT_PRINTF_H
 # include <stdarg.h>
 # include <stdio.h>
+# include <limits.h>
 # include "./libft/libft.h"
 
 static const char	*g_FLAGSET = "-+#0 ";
@@ -24,14 +25,14 @@ typedef struct	s_flags
 	int					left;
 	char				padc;
 	int					prec;
+	int					padp;
 	int					w;
 	char				sign;
+	int					signp;
 	char				modifier;
 	char				length;
 	int					pads;
 	int					ssize;
-	int					padp;
-	int					signp;
 	int					startpos;
 }				t_flags;
 
@@ -56,5 +57,6 @@ char	*ft_setnull();
 size_t	ft_strlenuntil(const char *s, int delim);
 void	ft_freearg(void *arg);
 void	ft_printlist(void *arg);
+int		ft_sethighest(int n1, int n2, int n3);
 
 #endif

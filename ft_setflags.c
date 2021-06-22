@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 10:24:53 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/21 11:08:25 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/22 17:19:18 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,19 @@ static int	ft_setandcount(const char *format, int *nbr)
 {
 	int	i;
 	int count;
+	int ncount;
 
 	count = 0;
 	i = 0;
-	if (ft_isdigit(format[0]))
-		count++; 
-	*nbr = ft_atoi(&format[0]);
+	if (ft_isdigit(format[i]))
+		count++;
+	*nbr = ft_atoi(&format[i]);
+	ncount = *nbr;
 	while (format[i] && format[i] == '0' && ft_isdigit(format[i + 1]))
-			i++;
-	while ((*nbr / 10) != 0 && (*nbr % 10) != 0)
+		i++;
+	while ((ncount / 10) != 0 && (ncount % 10) != 0)
 	{
-		*nbr = (*nbr / 10) + (*nbr % 10);
+		ncount = (ncount / 10) + (ncount % 10);
 		count++;
 	}
 	if (format[i + 1] && format[i + 1] == '0')
@@ -81,7 +83,7 @@ int	ft_setwidth(va_list alist, const char *format, t_flags *flags, int *i)
 		}
 		count++;
 	}
-	else
+	else if (format[*i] != '.')
 		count += ft_setandcount(&format[*i], &flags->w);
 	*i = *i + count;
 	return (count);
@@ -98,7 +100,7 @@ int	ft_setprecision(va_list alist, const char *format, t_flags *flags, int *i)
 	{
 		flags->prec = va_arg(alist, int);
 		if (flags->prec < 0)
-			flags->prec = 0;
+			flags->prec = -1;
 		count++;
 	}
 	else
