@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:42:04 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/18 17:48:47 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/22 18:23:14 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,7 @@ static int	ft_adjustptr(const char *str, t_flags *flags) //Need to be done
 	if (!(*str))
 		flags->prec = 0;
 	flags->ssize = ft_strlen(str);
-	if (flags->prec < (int)flags->ssize && flags->prec >= 0)
-		flags->ssize = flags->prec;
-	if (flags->w > (int)flags->ssize)
-		flags->pads = flags->w;
-	else
-		flags->pads = flags->ssize;
+	flags->pads = ft_sethighest(flags->ssize, flags->w, flags->prec);
 	if (!flags->left && flags->pads > flags->ssize)
 			flags->startpos = flags->pads - flags->ssize;
 	return (1);

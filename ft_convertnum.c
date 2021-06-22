@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 10:01:34 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/22 17:45:17 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/22 18:29:54 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	ft_numalign(t_flags *flags)
 	}
 	if ((flags->padc == '0' || flags->prec == flags->pads) && flags->sign)
 		flags->signp = 0;
-	if (flags->sign && (flags->ssize == flags->pads || flags->prec == (int)flags->pads))
+	if (flags->sign && (flags->ssize == flags->pads ||	flags->prec == (int)flags->pads))
 		flags->pads++;
 	return ;
 }
@@ -48,6 +48,7 @@ static int	ft_adjustnum(const char *str, char c, t_flags *flags)
 	flags->pads = ft_sethighest(flags->ssize, flags->prec, flags->w);
 	flags->padp = flags->prec - flags->ssize;
 	ft_numalign(flags);
+	
 	return (1);
 }
 
@@ -93,7 +94,7 @@ static char	*ft_getnum(va_list alist, const char c)
 	else
 	{
 		cui = va_arg(alist, unsigned int);
-		str = ft_itoa(cui);
+		str = ft_uitoa(cui);
 	}
 	if (str == NULL)
 		return (NULL);

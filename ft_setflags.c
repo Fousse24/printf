@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 10:24:53 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/22 17:19:18 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/22 18:17:16 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ static int	ft_setandcount(const char *format, int *nbr)
 	*nbr = ft_atoi(&format[i]);
 	ncount = *nbr;
 	while (format[i] && format[i] == '0' && ft_isdigit(format[i + 1]))
+	{
 		i++;
+		count++;
+	}
 	while ((ncount / 10) != 0 && (ncount % 10) != 0)
 	{
 		ncount = (ncount / 10) + (ncount % 10);

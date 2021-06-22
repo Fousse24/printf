@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:42:04 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/21 11:49:42 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/22 18:21:23 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	ft_adjuststr(const char *str, char c, t_flags *flags) //Need to be do
 	flags->ssize = ft_strlen(str);
 	if (c == 'c' && str[0] == 0)
 		flags->ssize = 1;
-	if (flags->prec < flags->ssize && flags->prec >= 0)
+	if (flags->prec < flags->ssize && flags->prec >= 0 && c != 'c')
 		flags->ssize = flags->prec;
 	if (flags->w > flags->ssize)
 		flags->pads = flags->w;

@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 16:36:47 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/22 16:46:28 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/22 18:03:42 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	ft_sethighest(int n1, int n2, int n3)
 {
-	if (n1 > n2 && n1 > n3)
+	if (n1 >= n2 && n1 >= n3)
 		return (n1);
-	if (n2 > n1 && n2 > n3)
+	if (n2 >= n1 && n2 >= n3)
 		return (n2);
 	return (n3);
 }
