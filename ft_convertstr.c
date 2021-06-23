@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:42:04 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/22 18:43:09 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/23 17:04:22 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ static int	ft_str(const char *str, t_flags *fl)
 	return (count);
 }
 
-static char	*ft_getstr(va_list alist)
+static char	*ft_getstr(va_list alist, t_flags *fl)
 {
 	char	*str;
 	char	*varg;
 
-	varg = va_arg(alist, char *);
+	ft_gettype_str(alist, fl, &varg);
 	if (varg != NULL)
 	{
 		str = (char *)malloc(sizeof(char) * 1);
@@ -75,14 +75,14 @@ static char	*ft_getstr(va_list alist)
 	return (str);
 }
 
-static char	*ft_getchar(va_list alist, const char c)
+static char	*ft_getchar(va_list alist, const char c, t_flags *fl)
 {
 	char	*str;
 	int		code;
 
 	code = -1;
 	if (c == 'c')
-		code = (unsigned char)va_arg(alist, int);
+		ft_gettype_c(alist, fl, &code);
 	str = (char *)malloc(sizeof(char) * 2);
 	if (str == NULL)
 		return (NULL);
@@ -102,9 +102,9 @@ int	ft_convertstr(va_list alist, const char c, t_flags *fl)
 	int		bytes;
 
 	if (c == 's')
-		str = ft_getstr(alist);
+		str = ft_getstr(alist, fl);
 	else
-		str = ft_getchar(alist, c);
+		str = ft_getchar(alist, c, fl);
 	if (str == NULL)
 		return (-1);
 	if (!ft_adjuststr(str, c, fl))

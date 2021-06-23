@@ -15,6 +15,8 @@
 # include <stdarg.h>
 # include <stdio.h>
 # include <limits.h>
+# include <stddef.h>
+# include <wchar.h>
 # include "./libft/libft.h"
 
 static const char	*g_FLAGSET = "-+#0 ";
@@ -61,5 +63,8 @@ int		ft_sethighest(int n1, int n2, int n3);
 int		ft_setprefix(char **src, char x);
 void	ft_gettype_num(va_list alist, t_flags *fl, long long int *n);
 void	ft_gettype_usnum(va_list alist, t_flags *fl, unsigned long long int *n);
+void	ft_gettype_c(va_list alist, t_flags *fl, int *c);
+void	ft_gettype_str(va_list alist, t_flags *fl, char **s);
+char	*ft_wstrtostr(wchar_t *wstr);
 
 #endif
