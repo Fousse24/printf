@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 10:01:34 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/22 18:41:08 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/23 15:23:37 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,12 @@ static char	*ft_getnum(va_list alist, const char c)
 	else
 	{
 		cui = va_arg(alist, unsigned int);
-		str = ft_uitoa(cui);
+		if (c == 'x')
+			str = ft_nbrtobase(cui, "0123456789abcdef");
+		else if (c == 'X')
+			str = ft_nbrtobase(cui, "0123456789ABCDEF");
+		else
+			str = ft_uitoa(cui);
 	}
 	if (str == NULL)
 		return (NULL);

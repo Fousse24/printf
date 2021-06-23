@@ -20,7 +20,7 @@
 static const char	*g_FLAGSET = "-+#0 ";
 static const char	*g_CONVERTSET = "cspdiuxX%nfge";
 
-typedef struct	s_flags
+typedef struct s_flags
 {
 	int		left;
 	char	padc;
@@ -29,7 +29,7 @@ typedef struct	s_flags
 	int		w;
 	char	sign;
 	int		signp;
-	char	modifier;
+	int		modifier;
 	char	length;
 	int		pads;
 	int		ssize;
@@ -41,7 +41,7 @@ int		ft_printall(va_list alist, const char *format);
 int		ft_getstrconv(va_list alist, const char *format, int *fi);
 char	*setstrpad(t_flags *fl, const char c);
 int		ft_getflags(const char *format, t_flags **fl);
-int		ft_setflags(va_list alist, const char *format, t_flags *fl, int n, int *i);
+int		ft_setflags(va_list alist, const char *format, t_flags **fl, int *i);
 void	ft_showflags(t_flags *fl);
 int		ft_setpadding(const char *options, t_flags *fl);
 int		ft_setwidth(va_list alist, const char *format, t_flags *fl, int *i);
@@ -50,10 +50,10 @@ int		ft_convertarg(va_list alist, const char c, t_flags *fl);
 int		ft_convertnum(va_list alist, const char c, t_flags *fl);
 int		ft_convertstr(va_list alist, const char c, t_flags *fl);
 int		ft_convertptr(va_list alist, t_flags *fl);
-char	*ft_nbrtohex(unsigned long nbr);
+char	*ft_nbrtobase(unsigned long nbr, char *base);
 char	*ft_strcatuntil(char *dest, const char *src, int delim);
 char	*ft_movetochar(char *str, char c);
-char	*ft_setnull();
+char	*ft_setnull(void);
 size_t	ft_strlenuntil(const char *s, int delim);
 void	ft_freearg(void *arg);
 void	ft_printlist(void *arg);

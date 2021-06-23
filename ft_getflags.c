@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 15:25:17 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/22 18:43:45 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/23 15:47:02 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	ft_initflags(t_flags *fl)
 	fl->prec = -1;
 	fl->w = 0;
 	fl->sign = '\0';
-	fl->modifier = '\0';
+	fl->modifier = 0;
 	fl->length = '\0';
 	fl->pads = 0;
 	fl->padp = 0;

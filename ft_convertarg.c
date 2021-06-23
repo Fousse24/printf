@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:42:04 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/22 18:35:44 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/23 15:00:17 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,12 @@ static int	ft_checkconvert(const char c)
 
 int	ft_getstrconv(va_list alist, const char *format, int *fi)
 {
-	int		count;
 	int		bytes;
 	int		i;
 	t_flags	*fl;
 
 	i = *fi + 1;
-	count = ft_getflags(&format[i], &fl);
-	if (count < 0)
-		return (-1);
-	if (!ft_setflags(alist, format, fl, count, &i))
+	if (!ft_setflags(alist, format, &fl, &i))
 	{
 		free(fl);
 		return (-1);
@@ -50,7 +46,7 @@ int	ft_convertarg(va_list alist, const char c, t_flags *fl)
 	bytes = -1;
 	if (!ft_checkconvert(c))
 		return (bytes);
-	if (c == 'd' || c == 'i' || c == 'u')
+	if (c == 'd' || c == 'i' || c == 'u' || c == 'x' || c == 'X')
 		bytes = ft_convertnum(alist, c, fl);
 	else if (c == 'c' || c == 's' || c == '%')
 		bytes = ft_convertstr(alist, c, fl);

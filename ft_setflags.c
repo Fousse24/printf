@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 10:24:53 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/22 18:50:47 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/23 15:18:40 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,30 @@ static int	ft_setandcount(const char *format, int *nbr)
 		ncount = (ncount / 10) + (ncount % 10);
 		count++;
 	}
-	if (format[i + 1] && format[i + 1] == '0')
+	if (format[i + 1] && ft_isdigit(format[i]) && format[i + 1] == '0')
 		count++;
 	return (count);
 }
 
-int	ft_setflags(va_list alist, const char *format, t_flags *fl, int n, int *i)
+int	ft_setflags(va_list alist, const char *format, t_flags **fl, int *i)
 {
 	char	*options;
+	int		count;
 
-	options = ft_substr(&format[*i], 0, n);
-	if (options == NULL)
+	count = ft_getflags(&format[*i], fl);
+	if (count < 0)
 		return (0);
-	ft_setpadding(options, fl);
-	*i = *i + n;
-	ft_setwidth(alist, format, fl, i);
+	options = ft_substr(&format[*i], 0, count);
+	if (options == NULL)
+	{	
+		free (*fl);
+		return (0);
+	}
+	ft_setpadding(options, *fl);
+	*i = *i + count;
+	ft_setwidth(alist, format, *fl, i);
 	if (format[*i] == '.')
-		ft_setprecision(alist, format, fl, i);
+		ft_setprecision(alist, format, *fl, i);
 	free(options);
 	return (1);
 }

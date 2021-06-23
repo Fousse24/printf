@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:42:04 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/22 18:42:12 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/23 14:39:41 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,29 @@ static int	ft_ptr(const char *str, t_flags *fl)
 static char	*ft_getptr(va_list alist)
 {
 	unsigned long	varg;
+	char			*temp;
 	char			*str;
 
 	varg = (unsigned long)va_arg(alist, void *);
-	str = ft_nbrtohex(varg);
-	if (str == NULL)
+	temp = ft_nbrtobase(varg, "0123456789abcdef");
+	if (temp == NULL)
 		return (NULL);
+	if (ft_strlen(temp) > 0)
+	{
+		str = (char *)malloc(sizeof(char) * (ft_strlen(temp) + 3));
+		if (str == NULL)
+		{
+			free(temp);
+			return (NULL);
+		}
+		str[0] = '0';
+		str[1] = 'x';
+		str[2] = '\0';
+		ft_strlcat(str, temp, ft_strlen(temp) + 3);
+		free(temp);
+	}
+	else
+		str = temp;
 	return (str);
 }
 

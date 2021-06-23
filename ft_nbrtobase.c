@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_nbrtohex.c                                      :+:      :+:    :+:   */
+/*   ft_nbrtobase.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 15:11:20 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/22 18:45:59 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/23 15:23:52 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,24 @@ static int	ft_base_is_valid(char *b, int size)
 	return (1);
 }
 
-static int	ft_fillstr(char **dst, unsigned long nbr, char *b, int size, int i) //to redo
+static int	ft_fillstr(char **dst, unsigned long nbr, char *b, int size)
 {
 	unsigned long	num;
+	int				i;
 
+	i = 0;
 	num = nbr % size;
 	if (nbr / size != 0)
-		i = ft_fillstr(dst, nbr / size, b, size, i);
+		i = ft_fillstr(dst, nbr / size, b, size);
 	(*dst)[i] = b[num % size];
 	return (i + 1);
 }
 
-char	*ft_nbrtohex(unsigned long nbr)
+char	*ft_nbrtobase(unsigned long nbr, char *base)
 {
 	int		size;
-	char	*base;
 	char	*ptr;
 
-	base = "0123456789abcdef";
 	size = ft_strlen(base);
 	if (ft_base_is_valid(base, size) == 1)
 	{
@@ -60,9 +60,7 @@ char	*ft_nbrtohex(unsigned long nbr)
 		if (ptr == NULL)
 			return (NULL);
 		ft_memset(ptr, '\0', 256);
-		ptr[0] = '0';
-		ptr[1] = 'x';
-		ft_fillstr(&ptr, nbr, base, size, 2);
+		ft_fillstr(&ptr, nbr, base, size);
 		return (ptr);
 	}
 	return (NULL);
