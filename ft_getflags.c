@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 15:25:17 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/23 15:47:02 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/23 16:18:33 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	ft_initflags(t_flags *fl)
 	fl->prec = -1;
 	fl->w = 0;
 	fl->sign = '\0';
-	fl->modifier = 0;
+	fl->mod = 0;
 	fl->length = '\0';
 	fl->pads = 0;
 	fl->padp = 0;
@@ -41,7 +41,7 @@ void	ft_showflags(t_flags *fl)
 	ft_putstr_fd("\n Sign or space : ", 1);
 	ft_putchar_fd(fl->sign, 1);
 	ft_putstr_fd("\n Modifier : ", 1);
-	ft_putchar_fd(fl->modifier, 1);
+	ft_putchar_fd(fl->mod, 1);
 	ft_putstr_fd("\n Length : ", 1);
 	ft_putchar_fd(fl->length, 1);
 	ft_putstr_fd("\n", 1);

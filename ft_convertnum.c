@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 10:01:34 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/23 15:23:37 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/23 16:50:11 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,22 +76,22 @@ static int	ft_int(const char *str, t_flags *fl)
 	return (count);
 }
 
-static char	*ft_getnum(va_list alist, const char c)
+static char	*ft_getnum(va_list alist, const char c, t_flags *fl)
 {
-	char			*str;
-	int				ci;
-	unsigned int	cui;
+	char						*str;
+	long long int				ci;
+	unsigned long long int		cui;
 
 	ci = 0;
 	cui = 0;
 	if (c == 'd' || c == 'i')
 	{
-		ci = va_arg(alist, int);
+		ft_gettype_num(alist, fl, &ci);
 		str = ft_itoa(ci);
 	}
 	else
 	{
-		cui = va_arg(alist, unsigned int);
+		ft_gettype_usnum(alist, fl, &cui);
 		if (c == 'x')
 			str = ft_nbrtobase(cui, "0123456789abcdef");
 		else if (c == 'X')
@@ -109,7 +109,9 @@ int	ft_convertnum(va_list alist, const char c, t_flags *fl)
 	char	*str;
 	int		bytes;
 
-	str = ft_getnum(alist, c);
+	str = ft_getnum(alist, c, fl);
+	if (str != NULL && (c == 'x' || c == 'X') && fl->mod)
+		ft_setprefix(&str, c);
 	if (str == NULL)
 		return (-1);
 	if (!ft_adjustnum(str, fl))

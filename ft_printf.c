@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 15:36:42 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/22 18:50:19 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/23 16:16:19 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	ft_printf(const char *format, ...)
 		bytes = ft_printall(arg_list, format);
 		if (bytes == -1)
 		{
-			ft_putstr_fd("Invalid, clearing", 1);
 			va_end(arg_list);
 			return (-1);
 		}

@@ -29,7 +29,7 @@ typedef struct s_flags
 	int		w;
 	char	sign;
 	int		signp;
-	int		modifier;
+	int		mod;
 	char	length;
 	int		pads;
 	int		ssize;
@@ -58,5 +58,8 @@ size_t	ft_strlenuntil(const char *s, int delim);
 void	ft_freearg(void *arg);
 void	ft_printlist(void *arg);
 int		ft_sethighest(int n1, int n2, int n3);
+int		ft_setprefix(char **src, char x);
+void	ft_gettype_num(va_list alist, t_flags *fl, long long int *n);
+void	ft_gettype_usnum(va_list alist, t_flags *fl, unsigned long long int *n);
 
 #endif

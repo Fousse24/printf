@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 10:24:53 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/23 15:18:40 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/23 16:13:40 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int	ft_setpadding(const char *options, t_flags *fl)
 		fl->sign = '+';
 	else if (ft_strpchr(options, ' ') >= 0)
 		fl->sign = ' ';
+	if (ft_strpchr(options, '#') >= 0)
+		fl->mod = 1;
 	return (1);
 }
 
