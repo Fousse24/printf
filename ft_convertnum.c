@@ -6,53 +6,51 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 10:01:34 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/22 18:29:54 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/22 18:41:08 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"ft_printf.h"
 
-static void	ft_numalign(t_flags *flags)
+static void	ft_numalign(t_flags *fl)
 {
-	if (!flags->left && flags->pads > flags->ssize)
+	if (!fl->left && fl->pads > fl->ssize)
 	{
-		if ((int)flags->ssize >= flags->prec)
-			flags->startpos = flags->pads - flags->ssize;
+		if ((int)fl->ssize >= fl->prec)
+			fl->startpos = fl->pads - fl->ssize;
 		else
-			flags->startpos = (int)flags->pads - flags->prec;
-		if (flags->startpos != 0 && flags->sign)
-			flags->signp = flags->startpos - 1;
+			fl->startpos = (int)fl->pads - fl->prec;
+		if (fl->startpos != 0 && fl->sign)
+			fl->signp = fl->startpos - 1;
 	}
-	if ((flags->padc == '0' || flags->prec == flags->pads) && flags->sign)
-		flags->signp = 0;
-	if (flags->sign && (flags->ssize == flags->pads ||	flags->prec == (int)flags->pads))
-		flags->pads++;
+	if ((fl->padc == '0' || fl->prec == fl->pads) && fl->sign)
+		fl->signp = 0;
+	if (fl->sign && (fl->ssize == fl->pads || fl->prec == (int)fl->pads))
+		fl->pads++;
 	return ;
 }
 
-static int	ft_adjustnum(const char *str, char c, t_flags *flags)
+static int	ft_adjustnum(const char *str, t_flags *fl)
 {
-	c = '\0'; //to remove
 	if (!str)
 		return (0);
-	if (flags->prec >= 0)
-		flags->padc = ' ';
-	flags->ssize = ft_strlen(str);
+	if (fl->prec >= 0)
+		fl->padc = ' ';
+	fl->ssize = ft_strlen(str);
 	if (str[0] == '-')
 	{
-		flags->ssize--;
-		flags->sign = '-';
+		fl->ssize--;
+		fl->sign = '-';
 	}
-	if (flags->prec == 0 && str[0] == '0')
-	 	flags->ssize = 0;
-	flags->pads = ft_sethighest(flags->ssize, flags->prec, flags->w);
-	flags->padp = flags->prec - flags->ssize;
-	ft_numalign(flags);
-	
+	if (fl->prec == 0 && str[0] == '0')
+		fl->ssize = 0;
+	fl->pads = ft_sethighest(fl->ssize, fl->prec, fl->w);
+	fl->padp = fl->prec - fl->ssize;
+	ft_numalign(fl);
 	return (1);
 }
 
-static int	ft_int(const char *str, t_flags *flags)
+static int	ft_int(const char *str, t_flags *fl)
 {
 	int		i;
 	int		count;
@@ -61,21 +59,21 @@ static int	ft_int(const char *str, t_flags *flags)
 	if (*str == '-')
 		str++;
 	i = -1;
-	while (++i < (int)flags->pads)
+	while (++i < (int)fl->pads)
 	{
-		if (flags->sign && i == flags->signp)
-			ft_putchar_fd(flags->sign, 1);
-		else if (i < flags->startpos)
-			ft_putchar_fd(flags->padc, 1);
-		else if (flags->padp-- > 0)
+		if (fl->sign && i == fl->signp)
+			ft_putchar_fd(fl->sign, 1);
+		else if (i < fl->startpos)
+			ft_putchar_fd(fl->padc, 1);
+		else if (fl->padp-- > 0)
 			ft_putchar_fd('0', 1);
-		else if (flags->ssize-- > 0)
+		else if (fl->ssize-- > 0)
 			ft_putchar_fd(*(str++), 1);
 		else
 			ft_putchar_fd(' ', 1);
 		count++;
 	}
-	return (count);	
+	return (count);
 }
 
 static char	*ft_getnum(va_list alist, const char c)
@@ -101,7 +99,7 @@ static char	*ft_getnum(va_list alist, const char c)
 	return (str);
 }
 
-int	ft_convertnum(va_list alist, const char c, t_flags *flags)
+int	ft_convertnum(va_list alist, const char c, t_flags *fl)
 {
 	char	*str;
 	int		bytes;
@@ -109,12 +107,12 @@ int	ft_convertnum(va_list alist, const char c, t_flags *flags)
 	str = ft_getnum(alist, c);
 	if (str == NULL)
 		return (-1);
-	if (!ft_adjustnum(str, c, flags))
+	if (!ft_adjustnum(str, fl))
 	{
 		free(str);
 		return (-1);
 	}
-	bytes = ft_int(str, flags);
+	bytes = ft_int(str, fl);
 	free(str);
 	return (bytes);
 }

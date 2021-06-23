@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 10:24:53 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/22 18:17:16 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/22 18:50:47 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static int	ft_setandcount(const char *format, int *nbr)
 {
 	int	i;
-	int count;
-	int ncount;
+	int	count;
+	int	ncount;
 
 	count = 0;
 	i = 0;
@@ -39,78 +39,75 @@ static int	ft_setandcount(const char *format, int *nbr)
 	return (count);
 }
 
-int	ft_setflags(va_list alist, const char *format, t_flags *flags, int count, int *i)
+int	ft_setflags(va_list alist, const char *format, t_flags *fl, int n, int *i)
 {
 	char	*options;
 
-	options = ft_substr(&format[*i], 0, count);
+	options = ft_substr(&format[*i], 0, n);
 	if (options == NULL)
 		return (0);
-	if (!ft_setpadding(options, flags))
-		return (0);
-	*i = *i + count;
-	if (ft_setwidth(alist, format, flags, i) == -1)
-		return (0);
+	ft_setpadding(options, fl);
+	*i = *i + n;
+	ft_setwidth(alist, format, fl, i);
 	if (format[*i] == '.')
-		if (ft_setprecision(alist, format, flags, i) == -1)
-			return (0);
+		ft_setprecision(alist, format, fl, i);
 	free(options);
 	return (1);
 }
 
-int	ft_setpadding(const char *options, t_flags *flags)
+int	ft_setpadding(const char *options, t_flags *fl)
 {
 	if (ft_strpchr(options, '-') >= 0)
-		flags->left = 1;
+		fl->left = 1;
 	else if (ft_strpchr(options, '0') >= 0)
-		flags->padc = '0';
+		fl->padc = '0';
 	if (ft_strpchr(options, '+') >= 0)
-		flags->sign = '+';
+		fl->sign = '+';
 	else if (ft_strpchr(options, ' ') >= 0)
-		flags->sign = ' ';
+		fl->sign = ' ';
 	return (1);
 }
 
-int	ft_setwidth(va_list alist, const char *format, t_flags *flags, int *i)
-{
-	int count;
-
-	count = 0;
-	if (format[*i] == '*')
-	{
-		flags->w = va_arg(alist, int);
-		if (flags->w < 0)
-		{
-			flags->w *= -1;
-			flags->left = 1;
-		}
-		count++;
-	}
-	else if (format[*i] != '.')
-		count += ft_setandcount(&format[*i], &flags->w);
-	*i = *i + count;
-	return (count);
-}
-
-int	ft_setprecision(va_list alist, const char *format, t_flags *flags, int *i)
+int	ft_setwidth(va_list alist, const char *format, t_flags *fl, int *i)
 {
 	int	count;
 
 	count = 0;
-	flags->prec = 0;
+	if (format[*i] == '*')
+	{
+		fl->w = va_arg(alist, int);
+		if (fl->w < 0)
+		{
+			fl->w *= -1;
+			fl->left = 1;
+		}
+		count++;
+	}
+	else if (format[*i] != '.')
+		count += ft_setandcount(&format[*i], &fl->w);
+	*i = *i + count;
+	return (count);
+}
+
+int	ft_setprecision(va_list alist, const char *format, t_flags *fl, int *i)
+{
+	int	count;
+
+	count = 0;
+	fl->prec = 0;
 	*i = *i + 1;
 	if (format[*i] == '*')
 	{
-		flags->prec = va_arg(alist, int);
-		if (flags->prec < 0)
-			flags->prec = -1;
+		fl->prec = va_arg(alist, int);
+		if (fl->prec < 0)
+			fl->prec = -1;
 		count++;
 	}
 	else
 	{
-		count += ft_setandcount(&format[*i], &flags->prec);
-		if (flags->prec < 0)
-			flags->prec = 0;
+		count += ft_setandcount(&format[*i], &fl->prec);
+		if (fl->prec < 0)
+			fl->prec = 0;
 	}	
 	*i = *i + count;
 	return (count);

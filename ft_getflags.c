@@ -6,49 +6,44 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 15:25:17 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/22 17:36:43 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/22 18:43:45 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"ft_printf.h"
 
-// int		ft_checkpadding(char *flags, t_flag *flags)
-// {
-// 	return (0);
-// }
-
-static void	ft_initflags(t_flags *flags)
+static void	ft_initflags(t_flags *fl)
 {
-	flags->left = 0;
-	flags->padc = ' ';
-	flags->prec = -1;
-	flags->w = 0;
-	flags->sign = '\0';
-	flags->modifier = '\0';
-	flags->length = '\0';
-	flags->pads = 0;
-	flags->padp = 0;
-	flags->startpos = 0;
-	flags->ssize = 0;
-	flags->signp = 0;
+	fl->left = 0;
+	fl->padc = ' ';
+	fl->prec = -1;
+	fl->w = 0;
+	fl->sign = '\0';
+	fl->modifier = '\0';
+	fl->length = '\0';
+	fl->pads = 0;
+	fl->padp = 0;
+	fl->startpos = 0;
+	fl->ssize = 0;
+	fl->signp = 0;
 }
 
-void	ft_showflags(t_flags *flags)
+void	ft_showflags(t_flags *fl)
 {
 	ft_putstr_fd("\n Align : ", 1);
-	ft_putnbr_fd(flags->left, 1);
+	ft_putnbr_fd(fl->left, 1);
 	ft_putstr_fd("\n Padding : ", 1);
-	ft_putchar_fd(flags->padc, 1);
+	ft_putchar_fd(fl->padc, 1);
 	ft_putstr_fd("\n w : ", 1);
-	ft_putnbr_fd(flags->w, 1);
+	ft_putnbr_fd(fl->w, 1);
 	ft_putstr_fd("\n prec : ", 1);
-	ft_putnbr_fd(flags->prec, 1);
+	ft_putnbr_fd(fl->prec, 1);
 	ft_putstr_fd("\n Sign or space : ", 1);
-	ft_putchar_fd(flags->sign, 1);
+	ft_putchar_fd(fl->sign, 1);
 	ft_putstr_fd("\n Modifier : ", 1);
-	ft_putchar_fd(flags->modifier, 1);
+	ft_putchar_fd(fl->modifier, 1);
 	ft_putstr_fd("\n Length : ", 1);
-	ft_putchar_fd(flags->length, 1);
+	ft_putchar_fd(fl->length, 1);
 	ft_putstr_fd("\n", 1);
 	return ;
 }
@@ -65,16 +60,16 @@ static int	ft_checkflags(const char *format)
 	return (count);
 }
 
-int		ft_getflags(const char *format, t_flags **flags)
+int	ft_getflags(const char *format, t_flags **fl)
 {
 	int		count;
-	
+
 	count = ft_checkflags(format);
-	if (count  < 0)
+	if (count < 0)
 		return (-1);
-	*flags = (t_flags *)malloc(sizeof(t_flags));
-	if (*flags == NULL)
+	*fl = (t_flags *)malloc(sizeof(t_flags));
+	if (*fl == NULL)
 		return (-1);
-	ft_initflags(*flags);
+	ft_initflags(*fl);
 	return (count);
 }

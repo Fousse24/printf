@@ -6,27 +6,26 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 15:11:20 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/18 16:25:36 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/22 18:45:59 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"ft_printf.h"
 
-static int	ft_base_is_valid(char *base, int size)
+static int	ft_base_is_valid(char *b, int size)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
-	if (ft_strlen(base) <= 1)
+	if (ft_strlen(b) <= 1)
 		return (0);
 	while (i < size)
 	{
 		while (j < size)
 		{
-			if (base[j] == 43 || base[j] == 45 ||
-				(base[j] == base[i] && i != j))
+			if (b[j] == 43 || b[j] == 45 || (b[j] == b[i] && i != j))
 				return (0);
 			j++;
 		}
@@ -36,14 +35,14 @@ static int	ft_base_is_valid(char *base, int size)
 	return (1);
 }
 
-static int	ft_fillstr(char **dst, unsigned long nbr, char *base, int size, int i)
+static int	ft_fillstr(char **dst, unsigned long nbr, char *b, int size, int i) //to redo
 {
 	unsigned long	num;
 
 	num = nbr % size;
 	if (nbr / size != 0)
-		i = ft_fillstr(dst, nbr / size, base, size, i);
-	(*dst)[i] = base[num % size];
+		i = ft_fillstr(dst, nbr / size, b, size, i);
+	(*dst)[i] = b[num % size];
 	return (i + 1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 15:36:42 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/18 19:31:37 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/22 18:50:19 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	ft_printall(va_list alist, const char *format)
 {	
-	int bytes;
+	int	bytes;
 	int	written;
-	int i;
-	
+	int	i;
+
 	bytes = 0;
 	written = 0;
 	i = -1;
@@ -39,7 +39,7 @@ int	ft_printall(va_list alist, const char *format)
 	return (bytes);
 }
 
-int		ft_printf(const char *format, ...)
+int	ft_printf(const char *format, ...)
 {
 	va_list		arg_list;
 	int			bytes;

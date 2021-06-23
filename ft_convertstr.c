@@ -6,53 +6,53 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:42:04 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/22 18:21:23 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/22 18:43:09 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"ft_printf.h"
 
-static int	ft_adjuststr(const char *str, char c, t_flags *flags) //Need to be done
+static int	ft_adjuststr(const char *str, char c, t_flags *fl)
 {
 	if (!str)
 		return (0);
 	if (c != '%')
-		flags->padc = ' ';
-	flags->sign = '\0';
+		fl->padc = ' ';
+	fl->sign = '\0';
 	if (!str)
-		flags->prec = 0;
-	flags->ssize = ft_strlen(str);
+		fl->prec = 0;
+	fl->ssize = ft_strlen(str);
 	if (c == 'c' && str[0] == 0)
-		flags->ssize = 1;
-	if (flags->prec < flags->ssize && flags->prec >= 0 && c != 'c')
-		flags->ssize = flags->prec;
-	if (flags->w > flags->ssize)
-		flags->pads = flags->w;
+		fl->ssize = 1;
+	if (fl->prec < fl->ssize && fl->prec >= 0 && c != 'c')
+		fl->ssize = fl->prec;
+	if (fl->w > fl->ssize)
+		fl->pads = fl->w;
 	else
-		flags->pads = flags->ssize;
-	if (!flags->left && flags->pads > flags->ssize)
-			flags->startpos = flags->pads - flags->ssize;
+		fl->pads = fl->ssize;
+	if (!fl->left && fl->pads > fl->ssize)
+		fl->startpos = fl->pads - fl->ssize;
 	return (1);
 }
 
-static int	ft_str(const char *str, t_flags *flags)
+static int	ft_str(const char *str, t_flags *fl)
 {
 	int		i;
 	int		count;
 
 	count = 0;
 	i = -1;
-	while (++i < (int)flags->pads)
+	while (++i < (int)fl->pads)
 	{
-		if (i < flags->startpos)
-			ft_putchar_fd(flags->padc, 1);
-		else if (flags->ssize > 0 && flags->ssize-- > 0)
+		if (i < fl->startpos)
+			ft_putchar_fd(fl->padc, 1);
+		else if (fl->ssize > 0 && fl->ssize-- > 0)
 			ft_putchar_fd(*(str++), 1);
 		else
 			ft_putchar_fd(' ', 1);
 		count++;
 	}
-	return (count);	
+	return (count);
 }
 
 static char	*ft_getstr(va_list alist)
@@ -71,7 +71,7 @@ static char	*ft_getstr(va_list alist)
 	else
 		str = ft_setnull();
 	if (str == NULL)
-		return (NULL);		
+		return (NULL);
 	return (str);
 }
 
@@ -89,14 +89,14 @@ static char	*ft_getchar(va_list alist, const char c)
 	if (c == '%')
 		str[0] = '%';
 	else if (code > 257 || code < 0)
-	  	str[0] = '\0';
+		str[0] = '\0';
 	else
 		str[0] = code;
 	str[1] = '\0';
 	return (str);
 }
 
-int	ft_convertstr(va_list alist, const char c, t_flags *flags)
+int	ft_convertstr(va_list alist, const char c, t_flags *fl)
 {
 	char	*str;
 	int		bytes;
@@ -107,12 +107,12 @@ int	ft_convertstr(va_list alist, const char c, t_flags *flags)
 		str = ft_getchar(alist, c);
 	if (str == NULL)
 		return (-1);
-	if (!ft_adjuststr(str, c, flags))
+	if (!ft_adjuststr(str, c, fl))
 	{
 		free(str);
 		return (-1);
 	}
-	bytes = ft_str(str, flags);
+	bytes = ft_str(str, fl);
 	free(str);
 	return (bytes);
 }
