@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 16:36:47 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/23 16:14:58 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/23 19:01:24 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,30 @@ int	ft_setprefix(char **src, char x)
 		*src = temp;
 	}
 	return (1);
+}
+
+void	ft_checklength(char *options, t_flags *fl)
+{
+	int	i;
+
+	i = -1;
+	while (options[++i])
+	{
+		if (options[i] == 'l')
+		{
+			if (options[i + 1] && options[i + 1] == 'l')
+				fl->length = 'L';
+			else
+				fl->length = 'l';
+			break ;
+		}
+		else if (options[i] == 'h')
+		{
+			if (options[i + 1] && options[i + 1] == 'h')
+				fl->length = 'H';
+			else
+				fl->length = 'h';
+			break ;
+		}
+	}
 }

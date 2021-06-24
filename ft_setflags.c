@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 10:24:53 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/23 16:13:40 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/23 19:51:36 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,20 @@ static int	ft_setandcount(const char *format, int *nbr)
 
 	count = 0;
 	i = 0;
-	if (ft_isdigit(format[i]))
-		count++;
 	*nbr = ft_atoi(&format[i]);
 	ncount = *nbr;
+	if (*nbr == 0 && format[0] == '0')
+		count++;
 	while (format[i] && format[i] == '0' && ft_isdigit(format[i + 1]))
 	{
 		i++;
 		count++;
 	}
-	while ((ncount / 10) != 0 && (ncount % 10) != 0)
+	while ((ncount / 10) != 0 || (ncount % 10) != 0)
 	{
-		ncount = (ncount / 10) + (ncount % 10);
+		ncount = (ncount / 10);
 		count++;
 	}
-	if (format[i + 1] && ft_isdigit(format[i]) && format[i + 1] == '0')
-		count++;
 	return (count);
 }
 
@@ -53,6 +51,7 @@ int	ft_setflags(va_list alist, const char *format, t_flags **fl, int *i)
 		free (*fl);
 		return (0);
 	}
+	ft_checklength(options, *fl);
 	ft_setpadding(options, *fl);
 	*i = *i + count;
 	ft_setwidth(alist, format, *fl, i);

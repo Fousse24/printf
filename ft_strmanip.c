@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 11:42:09 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/23 17:18:20 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/23 19:25:08 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ char	*ft_wstrtostr(wchar_t *wstr)
 	}
 	i = -1;
 	while (wstr[++i] != '\0')
-		str[i] = (char)wstr[i];
+		str[i] = (unsigned char)wstr[i];
 	str[i] = '\0';
-	free(wstr);
+	//free(wstr);
 	return (str);
 }
 

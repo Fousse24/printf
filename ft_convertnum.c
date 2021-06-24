@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 10:01:34 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/23 16:50:11 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/23 18:59:55 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	ft_adjustnum(const char *str, t_flags *fl)
 		fl->ssize--;
 		fl->sign = '-';
 	}
-	if (fl->prec == 0 && str[0] == '0')
+	if (fl->prec == 0 && str[0] == '0' && !str[1])
 		fl->ssize = 0;
 	fl->pads = ft_sethighest(fl->ssize, fl->prec, fl->w);
 	fl->padp = fl->prec - fl->ssize;
@@ -87,7 +87,7 @@ static char	*ft_getnum(va_list alist, const char c, t_flags *fl)
 	if (c == 'd' || c == 'i')
 	{
 		ft_gettype_num(alist, fl, &ci);
-		str = ft_itoa(ci);
+		str = ft_llitoa(ci);
 	}
 	else
 	{
@@ -110,7 +110,7 @@ int	ft_convertnum(va_list alist, const char c, t_flags *fl)
 	int		bytes;
 
 	str = ft_getnum(alist, c, fl);
-	if (str != NULL && (c == 'x' || c == 'X') && fl->mod)
+	if (str != NULL && (c == 'x' || c == 'X') && fl->mod && str[0] != '0')
 		ft_setprefix(&str, c);
 	if (str == NULL)
 		return (-1);
