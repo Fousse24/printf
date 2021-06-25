@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 10:01:34 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/23 18:59:55 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/25 19:46:50 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,7 @@ static char	*ft_getnum(va_list alist, const char c, t_flags *fl)
 	else
 	{
 		ft_gettype_usnum(alist, fl, &cui);
-		if (c == 'x')
-			str = ft_nbrtobase(cui, "0123456789abcdef");
-		else if (c == 'X')
-			str = ft_nbrtobase(cui, "0123456789ABCDEF");
-		else
-			str = ft_uitoa(cui);
+		str = ft_uitoa(cui);
 	}
 	if (str == NULL)
 		return (NULL);
@@ -110,8 +105,6 @@ int	ft_convertnum(va_list alist, const char c, t_flags *fl)
 	int		bytes;
 
 	str = ft_getnum(alist, c, fl);
-	if (str != NULL && (c == 'x' || c == 'X') && fl->mod && str[0] != '0')
-		ft_setprefix(&str, c);
 	if (str == NULL)
 		return (-1);
 	if (!ft_adjustnum(str, fl))

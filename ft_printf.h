@@ -19,7 +19,7 @@
 # include <wchar.h>
 # include "./libft/libft.h"
 
-static const char	*g_FLAGSET = "-+#0 lh";
+static const char	*g_FLAGSET = "-+#0 ";
 static const char	*g_CONVERTSET = "cspdiuxX%nfge";
 
 typedef struct s_flags
@@ -31,27 +31,29 @@ typedef struct s_flags
 	int		w;
 	char	sign;
 	int		signp;
-	int		mod;
+	char	mod;
 	char	length;
 	int		pads;
 	int		ssize;
 	int		startpos;
+	int		b_wr;
 }				t_flags;
 
 int		ft_printf(const char *format, ...);
 int		ft_printall(va_list alist, const char *format);
-int		ft_getstrconv(va_list alist, const char *format, int *fi);
+int		ft_getstrconv(va_list alist, const char *format, int *fi, int b_wr);
 char	*setstrpad(t_flags *fl, const char c);
 int		ft_getflags(const char *format, t_flags **fl);
 int		ft_setflags(va_list alist, const char *format, t_flags **fl, int *i);
 void	ft_showflags(t_flags *fl);
 int		ft_setpadding(const char *options, t_flags *fl);
-void	ft_checklength(char *options, t_flags *fl);
+void	ft_checklength(const char *format, t_flags *fl, int *i);
 int		ft_setwidth(va_list alist, const char *format, t_flags *fl, int *i);
 int		ft_setprecision(va_list alist, const char *format, t_flags *fl, int *i);
 int		ft_convertarg(va_list alist, const char c, t_flags *fl);
 int		ft_convertnum(va_list alist, const char c, t_flags *fl);
 int		ft_convertstr(va_list alist, const char c, t_flags *fl);
+int		ft_converthex(va_list alist, const char c, t_flags *fl);
 int		ft_convertptr(va_list alist, t_flags *fl);
 char	*ft_nbrtobase(unsigned long nbr, char *base);
 char	*ft_strcatuntil(char *dest, const char *src, int delim);

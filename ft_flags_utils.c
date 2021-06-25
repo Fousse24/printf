@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 16:36:47 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/23 19:01:24 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/25 19:12:53 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,28 +44,30 @@ int	ft_setprefix(char **src, char x)
 	return (1);
 }
 
-void	ft_checklength(char *options, t_flags *fl)
+void	ft_checklength(const char *format, t_flags *fl, int *i)
 {
-	int	i;
-
-	i = -1;
-	while (options[++i])
+	while (format[*i] == 'l' || format[*i] == 'h')
 	{
-		if (options[i] == 'l')
+		if (format[*i] == 'l')
 		{
-			if (options[i + 1] && options[i + 1] == 'l')
+			if (format[*i + 1] && format[*i + 1] == 'l')
+			{
 				fl->length = 'L';
+				*i = *i + 1;
+			}
 			else
 				fl->length = 'l';
-			break ;
 		}
-		else if (options[i] == 'h')
+		else if (format[*i] == 'h')
 		{
-			if (options[i + 1] && options[i + 1] == 'h')
+			if (format[*i + 1] && format[*i + 1] == 'h')
+			{
 				fl->length = 'H';
+				*i = *i + 1;
+			}
 			else
 				fl->length = 'h';
-			break ;
 		}
+		*i = *i + 1;
 	}
 }

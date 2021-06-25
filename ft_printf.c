@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 15:36:42 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/23 16:16:19 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/25 18:38:43 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_printall(va_list alist, const char *format)
 		}
 		else
 		{
-			written = ft_getstrconv(alist, format, &i);
+			written = ft_getstrconv(alist, format, &i, bytes);
 			if (written == -1)
 				return (-1);
 			bytes += written;
