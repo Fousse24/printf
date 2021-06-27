@@ -6,7 +6,7 @@
 #    By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/10 10:07:12 by sfournie          #+#    #+#              #
-#    Updated: 2021/06/25 15:56:14 by sfournie         ###   ########.fr        #
+#    Updated: 2021/06/27 14:08:45 by sfournie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ MLIBFT	= cd ./libft/ && make
 
 SRCS	= ft_printf.c ft_strmanip.c  ft_getflags.c ft_setflags.c\
 		ft_convertarg.c ft_convertstr.c ft_convertnum.c ft_nbrtobase.c\
-		ft_convertptr.c ft_flags_utils.c ft_gettype.c ft_converthex.c
+		ft_convertptr.c ft_flags_utils.c ft_gettype.c ft_converthex.c\
+		ft_convertchar.c
 
 OBJS	= $(patsubst %.c,%.o,$(SRCS))
 
