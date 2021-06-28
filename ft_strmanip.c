@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 11:42:09 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/27 16:39:42 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/28 10:29:17 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_putwchar_fd(long wc, int fd)
 {
 	if (fd >= 0 && fd <= 2)
-		write(fd, &wc, sizeof(long));
+		write(fd, &wc, sizeof(wc));
 }
 
 char	*ft_wstrtostr(wchar_t *wstr)

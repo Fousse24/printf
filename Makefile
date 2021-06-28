@@ -6,12 +6,12 @@
 #    By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/10 10:07:12 by sfournie          #+#    #+#              #
-#    Updated: 2021/06/27 14:08:45 by sfournie         ###   ########.fr        #
+#    Updated: 2021/06/27 18:05:56 by sfournie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -g
 
 NAME	= libftprintf.a
 INCDIR	= ./libft/
