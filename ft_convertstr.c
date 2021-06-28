@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:42:04 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/28 10:36:19 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/27 13:52:22 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,36 @@ static char	*ft_getstr(va_list alist, t_flags *fl)
 	return (str);
 }
 
+static char	*ft_getchar(va_list alist, const char c, t_flags *fl)
+{
+	char	*str;
+	int		code;
+
+	code = -1;
+	if (c == 'c')
+		ft_gettype_c(alist, fl, &code);
+	str = (char *)malloc(sizeof(char) * 2);
+	if (str == NULL)
+		return (NULL);
+	if (c == '%')
+		str[0] = '%';
+	else if (code > 257 || code < 0)
+		str[0] = '\0';
+	else
+		str[0] = code;
+	str[1] = '\0';
+	return (str);
+}
+
 int	ft_convertstr(va_list alist, const char c, t_flags *fl)
 {
 	char	*str;
 	int		bytes;
 
-	str = ft_getstr(alist, fl);
+	if (c == 's')
+		str = ft_getstr(alist, fl);
+	else
+		str = ft_getchar(alist, c, fl);
 	if (str == NULL)
 		return (-1);
 	if (!ft_adjuststr(str, c, fl))
