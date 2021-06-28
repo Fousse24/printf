@@ -6,7 +6,7 @@
 #    By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/10 10:07:12 by sfournie          #+#    #+#              #
-#    Updated: 2021/06/28 12:33:31 by sfournie         ###   ########.fr        #
+#    Updated: 2021/06/28 12:49:52 by sfournie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,9 @@ CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror -g
 
 NAME	= libftprintf.a
-INCDIR	= ./libft/
+INCDIR	= ./libft
 
+LIBFT	= $(INCDIR)/libft.a
 MLIBFT	= cd ./libft/ && make
 
 SRCS	= ft_printf.c ft_strmanip.c  ft_getflags.c ft_setflags.c\
@@ -27,12 +28,12 @@ OBJS	= $(patsubst %.c,%.o,$(SRCS))
 
 HEAD	= ft_printf.h
 
-$(NAME) : $(HEAD) $(OBJS) libft
+$(NAME) : $(LIBFT) $(HEAD) $(OBJS)
 		ar crs $(NAME) $(OBJS)
 
 all		: $(NAME)
 
-libft	: 
+$(LIBFT): 
 		$(MLIBFT) all
 		cp ./libft/libft.a libftprintf.a	
 
