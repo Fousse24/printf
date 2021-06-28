@@ -1,0 +1,12 @@
+.DS_STORE
+a.out
+main_printf
+ft_oldsetformat.c
+printftester
+.vscode/
+42TESTERS-PRINTF/
+f_printf_test/
+libftprintf.a
+main_printfmain.exe.dSYM/
+pft/
+printf.code-workspace
