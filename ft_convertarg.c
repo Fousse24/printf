@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:42:04 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/27 15:28:38 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/29 16:19:56 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	ft_convertarg(va_list alist, const char c, t_flags *fl)
 	else if (c == 'x' || c == 'X')
 		bytes = ft_converthex(alist, c, fl);
 	else if (c == 's')
-		bytes = ft_convertstr(alist, c, fl);
+		bytes = ft_convertstr(alist, fl);
 	else if (c == 'c' || c == '%')
 		bytes = ft_convertchar(alist, c, fl);
 	else if (c == 'p')

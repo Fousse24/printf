@@ -52,7 +52,7 @@ int		ft_setwidth(va_list alist, const char *format, t_flags *fl, int *i);
 int		ft_setprecision(va_list alist, const char *format, t_flags *fl, int *i);
 int		ft_convertarg(va_list alist, const char c, t_flags *fl);
 int		ft_convertnum(va_list alist, const char c, t_flags *fl);
-int		ft_convertstr(va_list alist, const char c, t_flags *fl);
+int		ft_convertstr(va_list alist, t_flags *fl);
 int		ft_converthex(va_list alist, const char c, t_flags *fl);
 int		ft_convertchar(va_list alist, const char c, t_flags *fl);
 int		ft_convertptr(va_list alist, t_flags *fl);
