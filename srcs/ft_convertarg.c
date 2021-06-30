@@ -6,11 +6,11 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:42:04 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/29 16:19:56 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/30 12:42:48 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"ft_printf.h"
+#include	"../includes/ft_printf.h"
 
 static int	ft_checkconvert(const char c)
 {

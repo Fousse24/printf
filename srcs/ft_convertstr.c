@@ -1,88 +1,77 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_convertptr.c                                    :+:      :+:    :+:   */
+/*   ft_convertstr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:42:04 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/23 20:02:49 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/30 12:42:48 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"ft_printf.h"
+#include	"../includes/ft_printf.h"
 
-static int	ft_adjustptr(const char *str, t_flags *fl)
+static int	ft_adjuststr(const char *str, t_flags *fl)
 {
 	if (!str)
 		return (0);
 	fl->padc = ' ';
 	fl->sign = '\0';
-	if (!(*str))
+	if (!*str)
 		fl->prec = 0;
 	fl->ssize = ft_strlen(str);
-	if (fl->prec == 0 && str[2] && str[2] == '0')
-		fl->ssize = 2;
-	fl->pads = ft_sethighest(fl->ssize, fl->w, fl->prec);
+	if (fl->prec < fl->ssize && fl->prec >= 0)
+		fl->ssize = fl->prec;
+	if (fl->w > fl->ssize)
+		fl->pads = fl->w;
+	else
+		fl->pads = fl->ssize;
 	if (!fl->left && fl->pads > fl->ssize)
 		fl->startpos = fl->pads - fl->ssize;
 	return (1);
 }
 
-static int	ft_ptr(const char *str, t_flags *fl)
+static int	ft_str(const char *str, t_flags *fl)
 {
-	char	*fstr;
 	int		i;
 	int		count;
 
 	count = 0;
-	fstr = (char *)malloc(sizeof(char) * (fl->pads + 1));
-	if (fstr == NULL)
-		return (-1);
 	i = -1;
 	while (++i < (int)fl->pads)
 	{
 		if (i < fl->startpos)
-			fstr[i] = fl->padc;
-		else if (fl->ssize > 0 && fl->ssize-- > 0)
-			fstr[i] = *(str++);
+			ft_putchar_fd(fl->padc, 1);
+		else if (fl->ssize > 0 && *str && fl->ssize-- > 0)
+			ft_putchar_fd(*(str++), 1);
 		else
-			fstr[i] = ' ';
+			ft_putchar_fd(' ', 1);
 		count++;
 	}
-	fstr[i] = '\0';
-	ft_putstr_fd(fstr, 1);
-	free(fstr);
 	return (count);
 }
 
-static char	*ft_getptr(va_list alist)
+static char	*ft_getstr(va_list alist, t_flags *fl)
 {
-	unsigned long	varg;
-	char			*str;
+	char	*varg;
 
-	varg = (unsigned long)va_arg(alist, void *);
-	str = ft_nbrtobase(varg, "0123456789abcdef");
-	if (str == NULL)
-		return (NULL);
-	if (!ft_setprefix(&str, 'x'))
-	{
-		free(str);
-		return (NULL);
-	}
-	return (str);
+	ft_gettype_str(alist, fl, &varg);
+	if (varg == NULL)
+		varg = "(null)";
+	return (varg);
 }
 
-int	ft_convertptr(va_list alist, t_flags *fl)
+int	ft_convertstr(va_list alist, t_flags *fl)
 {
-	int		bytes;
 	char	*str;
+	int		bytes;
 
-	str = ft_getptr(alist);
+	str = ft_getstr(alist, fl);
 	if (str == NULL)
 		return (-1);
-	ft_adjustptr(str, fl);
-	bytes = ft_ptr(str, fl);
-	free(str);
+	if (!ft_adjuststr(str, fl))
+		return (-1);
+	bytes = ft_str(str, fl);
 	return (bytes);
 }

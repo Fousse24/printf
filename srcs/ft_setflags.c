@@ -6,11 +6,11 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 10:24:53 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/25 19:26:30 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/30 12:42:48 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"ft_printf.h"
+#include	"../includes/ft_printf.h"
 
 static int	ft_setandcount(const char *format, int *nbr)
 {

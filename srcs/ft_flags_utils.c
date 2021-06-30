@@ -6,11 +6,11 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 16:36:47 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/25 19:12:53 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/30 12:42:48 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"ft_printf.h"
+#include	"../includes/ft_printf.h"
 
 int	ft_sethighest(int n1, int n2, int n3)
 {

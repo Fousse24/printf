@@ -6,11 +6,11 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 15:36:42 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/29 16:00:06 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/30 12:42:48 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"ft_printf.h"
+#include	"../includes/ft_printf.h"
 
 int	ft_printall(va_list alist, const char *format)
 {	

@@ -6,11 +6,11 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 16:24:18 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/29 16:01:59 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/30 12:44:51 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"ft_printf.h"
+#include	"../includes/ft_printf.h"
 
 void	ft_gettype_num(va_list alist, t_flags *fl, long long int *n)
 {
