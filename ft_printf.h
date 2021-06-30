@@ -60,7 +60,7 @@ char	*ft_nbrtobase(unsigned long nbr, char *base);
 char	*ft_strcatuntil(char *dest, const char *src, int delim);
 char	*ft_movetochar(char *str, char c);
 char	*ft_setnull(void);
-void	ft_putwchar_fd(long wc, int fd);
+void	ft_putwchar_fd(wchar_t wc, int fd);
 size_t	ft_strlenuntil(const char *s, int delim);
 void	ft_freearg(void *arg);
 void	ft_printlist(void *arg);

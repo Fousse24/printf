@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:42:04 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/28 10:28:01 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/30 12:05:28 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	ft_char(const char c, t_flags *fl)
 	return (count);
 }
 
-static int	ft_wchar(long c, t_flags *fl)
+static int	ft_wchar(wchar_t c, t_flags *fl)
 {
 	int		i;
 	int		count;
@@ -71,7 +71,7 @@ static int	ft_wchar(long c, t_flags *fl)
 
 int	ft_convertchar(va_list alist, const char c, t_flags *fl)
 {
-	long	wch;
+	wchar_t	wch;
 	char	ch;
 	int		bytes;
 

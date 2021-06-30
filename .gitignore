@@ -5,7 +5,7 @@ ft_oldsetformat.c
 printftester
 .vscode/
 42TESTERS-PRINTF/
-f_printf_test/
+ft_printf_test/
 libftprintf.a
 main_printfmain.exe.dSYM/
 pft/

@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:42:04 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/30 11:16:39 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/06/30 12:27:34 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,25 +54,13 @@ static int	ft_str(const char *str, t_flags *fl)
 
 static char	*ft_getstr(va_list alist, t_flags *fl)
 {
-	char	*str;
 	char	*varg;
 
 	ft_gettype_str(alist, fl, &varg);
-	if (varg != NULL)
-	{
-		str = (char *)malloc(sizeof(char) * 1);
-		if (str == NULL)
-			return (NULL);
-		ft_strlcpy(str, varg, (ft_strlen(varg) + 1));
-	}
-	else
-		str = ft_setnull();
-	printf("\n%s", str);
-	if (str == NULL)
-		return (NULL);
-	return (str);
+	if (varg == NULL)
+		varg = "(null)";
+	return (varg);
 }
-
 
 int	ft_convertstr(va_list alist, t_flags *fl)
 {
@@ -83,11 +71,7 @@ int	ft_convertstr(va_list alist, t_flags *fl)
 	if (str == NULL)
 		return (-1);
 	if (!ft_adjuststr(str, fl))
-	{
-		free(str);
 		return (-1);
-	}
 	bytes = ft_str(str, fl);
-	free(str);
 	return (bytes);
 }
