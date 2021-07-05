@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:42:04 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/30 12:42:48 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/07/05 10:20:50 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,13 @@ int	ft_getstrconv(va_list alist, const char *format, int *fi, int b_wr)
 {
 	int		bytes;
 	int		i;
-	t_flags	*fl;
+	t_flags	fl;
 
 	i = *fi + 1;
 	if (!ft_setflags(alist, format, &fl, &i))
-	{
-		free(fl);
 		return (-1);
-	}
-	fl->b_wr = b_wr;
-	bytes = ft_convertarg(alist, format[i], fl);
-	free(fl);
+	fl.b_wr = b_wr;
+	bytes = ft_convertarg(alist, format[i], &fl);
 	if (bytes == -1)
 		return (-1);
 	*fi = i;

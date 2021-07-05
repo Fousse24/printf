@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 15:25:17 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/30 12:42:48 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/07/05 10:18:38 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,13 @@ static int	ft_checkflags(const char *format)
 	return (count);
 }
 
-int	ft_getflags(const char *format, t_flags **fl)
+int	ft_getflags(const char *format, t_flags *fl)
 {
 	int		count;
 
 	count = ft_checkflags(format);
 	if (count < 0)
 		return (-1);
-	*fl = (t_flags *)malloc(sizeof(t_flags));
-	if (*fl == NULL)
-		return (-1);
-	ft_initflags(*fl);
+	ft_initflags(fl);
 	return (count);
 }

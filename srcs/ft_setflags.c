@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 10:24:53 by sfournie          #+#    #+#             */
-/*   Updated: 2021/06/30 12:42:48 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/07/05 10:19:34 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	ft_setandcount(const char *format, int *nbr)
 	return (count);
 }
 
-int	ft_setflags(va_list alist, const char *format, t_flags **fl, int *i)
+int	ft_setflags(va_list alist, const char *format, t_flags *fl, int *i)
 {
 	char	*options;
 	int		count;
@@ -39,20 +39,15 @@ int	ft_setflags(va_list alist, const char *format, t_flags **fl, int *i)
 	if (count < 0)
 		return (0);
 	options = ft_substr(&format[*i], 0, count);
-	if (options == NULL)
-	{	
-		free (*fl);
-		return (0);
-	}
-	ft_setpadding(options, *fl);
+	ft_setpadding(options, fl);
 	*i = *i + count;
-	ft_setwidth(alist, format, *fl, i);
+	ft_setwidth(alist, format, fl, i);
 	if (format[*i] == '.')
-		ft_setprecision(alist, format, *fl, i);
+		ft_setprecision(alist, format, fl, i);
 	free(options);
 	if (format[*i] == 'l' || format[*i] == 'h')
 	{
-		ft_checklength(format, *fl, i);
+		ft_checklength(format, fl, i);
 	}
 	return (1);
 }
