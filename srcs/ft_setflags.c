@@ -6,7 +6,7 @@
 /*   By: sfournie <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 10:24:53 by sfournie          #+#    #+#             */
-/*   Updated: 2021/07/05 10:19:34 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/07/05 10:32:12 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,37 +32,54 @@ static int	ft_setandcount(const char *format, int *nbr)
 
 int	ft_setflags(va_list alist, const char *format, t_flags *fl, int *i)
 {
-	char	*options;
 	int		count;
 
 	count = ft_getflags(&format[*i], fl);
 	if (count < 0)
 		return (0);
-	options = ft_substr(&format[*i], 0, count);
-	ft_setpadding(options, fl);
+	ft_setpadding(&format[*i], fl, count);
 	*i = *i + count;
 	ft_setwidth(alist, format, fl, i);
 	if (format[*i] == '.')
 		ft_setprecision(alist, format, fl, i);
-	free(options);
 	if (format[*i] == 'l' || format[*i] == 'h')
-	{
 		ft_checklength(format, fl, i);
-	}
 	return (1);
 }
 
-int	ft_setpadding(const char *options, t_flags *fl)
+// int	ft_setflags(va_list alist, const char *format, t_flags *fl, int *i)
+// {
+// 	char	*options;
+// 	int		count;
+
+// 	count = ft_getflags(&format[*i], fl);
+// 	if (count < 0)
+// 		return (0);
+// 	options = ft_substr(&format[*i], 0, count);
+// 	ft_setpadding(options, fl);
+// 	*i = *i + count;
+// 	ft_setwidth(alist, format, fl, i);
+// 	if (format[*i] == '.')
+// 		ft_setprecision(alist, format, fl, i);
+// 	free(options);
+// 	if (format[*i] == 'l' || format[*i] == 'h')
+// 	{
+// 		ft_checklength(format, fl, i);
+// 	}
+// 	return (1);
+// }
+
+int	ft_setpadding(const char *options, t_flags *fl, int len)
 {
-	if (ft_strpchr(options, '-') >= 0)
+	if (ft_strnstr(options, "-", len))
 		fl->left = 1;
-	else if (ft_strpchr(options, '0') >= 0)
+	else if (ft_strnstr(options, "0", len))
 		fl->padc = '0';
-	if (ft_strpchr(options, '+') >= 0)
+	if (ft_strnstr(options, "+", len))
 		fl->sign = '+';
-	else if (ft_strpchr(options, ' ') >= 0)
+	else if (ft_strnstr(options, " ", len))
 		fl->sign = ' ';
-	if (ft_strpchr(options, '#') >= 0)
+	if (ft_strnstr(options, "#", len))
 		fl->mod = 'x';
 	return (1);
 }

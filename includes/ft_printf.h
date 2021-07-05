@@ -46,7 +46,7 @@ char	*setstrpad(t_flags *fl, const char c);
 int		ft_getflags(const char *format, t_flags *fl);
 int		ft_setflags(va_list alist, const char *format, t_flags *fl, int *i);
 void	ft_showflags(t_flags *fl);
-int		ft_setpadding(const char *options, t_flags *fl);
+int		ft_setpadding(const char *options, t_flags *fl, int len);
 void	ft_checklength(const char *format, t_flags *fl, int *i);
 int		ft_setwidth(va_list alist, const char *format, t_flags *fl, int *i);
 int		ft_setprecision(va_list alist, const char *format, t_flags *fl, int *i);
