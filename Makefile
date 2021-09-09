@@ -26,7 +26,7 @@ SRCS	= ft_printf.c ft_strmanip.c  ft_getflags.c ft_setflags.c\
 		ft_convertptr.c ft_flags_utils.c ft_gettype.c ft_converthex.c\
 		ft_convertchar.c
 
-OBJS	= $(join $(addsuffix $(SRCDIR)/, $(dir $(SRCS))), $(notdir $(SRCS:.c=.o))) 
+OBJS	=  
 
 
 HEAD	= $(INC)/ft_printf.h
